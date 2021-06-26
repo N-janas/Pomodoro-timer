@@ -13,10 +13,9 @@ namespace PomodoroTimer.ViewModel
     // Resources' alias
     using res = Properties.Resources;
 
-    class TimerViewModel : ViewModelBase//, IObserver
+    class TimerViewModel : ViewModelBase
     {
         #region Fields
-        //private int _currentTime;
         private int _minutes;
         private int _seconds;
         private string _startButtonContent;
@@ -40,8 +39,6 @@ namespace PomodoroTimer.ViewModel
             _startButtonContent = res.Start;
             // Assign starter button visibility
             SkipVisible = false;
-            //_timer.Attach(this);
-            //_currentTime = _timer.WorkTime;
         }
 
         #region Properties

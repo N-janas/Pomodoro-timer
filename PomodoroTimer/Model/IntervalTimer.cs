@@ -8,10 +8,8 @@ using System.Diagnostics;
 
 namespace PomodoroTimer.Model
 {
-    class IntervalTimer// : ITimer
+    class IntervalTimer
     {
-        //private List<IObserver> observers = new List<IObserver>();
-
         public event Action IntervalPassed;
 
         public int WorkTime { get; private set; } = getSeconds(15);
@@ -38,10 +36,11 @@ namespace PomodoroTimer.Model
         private void CountDown(Object source, ElapsedEventArgs e)
         {
             CurrentTime -= 1;
+            // Notify
             IntervalPassed?.Invoke();
+            // Stop when time ended
             if (CurrentTime <= 0)
                 ResetTimer();
-            //Notify();
         }
 
         private void ResetTimer()
@@ -55,18 +54,6 @@ namespace PomodoroTimer.Model
             CurrentTime = timeMode;
         }
 
-        #endregion
-
-        #region ITimer methods
-        //public void Attach(IObserver observer) => observers.Add(observer);
-        //public void Detach(IObserver observer) => observers.Remove(observer);
-        //public void Notify()
-        //{
-        //    foreach (var observer in observers)
-        //    {
-        //        observer.Update(this);
-        //    }
-        //}
         #endregion
     }
 }
