@@ -22,12 +22,18 @@ namespace PomodoroTimer.ViewModel
         private string _startButtonContent;
         private bool _skipVisible;
         private IntervalTimer _timer = new IntervalTimer();
+        private bool _workTimeChecked;
+        private bool _shortBreakChecked;
+        private bool _longBreakChecked;
         #endregion
 
         public TimerViewModel()
         {
             // Set starter timer
             Update();
+            // Set mode 
+            WorkTimeChecked = true;
+            ShortBreakChecked = LongBreakChecked = false;
             // Attach viewmodel's update as observer
             _timer.IntervalPassed += Update;
             // Assign starter label 
@@ -44,30 +50,42 @@ namespace PomodoroTimer.ViewModel
             get { return _minutes; }
             set { _minutes = value; onPropertyChanged(nameof(Minutes)); }
         }
-
         public int Seconds
         {
             get { return _seconds; }
             set { _seconds = value; onPropertyChanged(nameof(Seconds)); }
 
         }
-
         public string StartButtonContent
         {
             get { return _startButtonContent; }
             set { _startButtonContent = value; onPropertyChanged(nameof(StartButtonContent)); }
         }
-
         public bool SkipVisible
         {
             get { return _skipVisible; }
             set { _skipVisible = value; onPropertyChanged(nameof(SkipVisible)); }
         }
+        public bool WorkTimeChecked
+        {
+            get { return _workTimeChecked; }
+            set { _workTimeChecked = value; onPropertyChanged(nameof(WorkTimeChecked)); }
+        }
+        public bool ShortBreakChecked
+        {
+            get { return _shortBreakChecked; }
+            set { _shortBreakChecked = value; onPropertyChanged(nameof(ShortBreakChecked)); }
+        }
+        public bool LongBreakChecked
+        {
+            get { return _longBreakChecked; }
+            set { _longBreakChecked = value; onPropertyChanged(nameof(LongBreakChecked)); }
+        }
         #endregion
 
         #region Methods
         // Updating time
-        public void Update()
+        private void Update()
         {
             Minutes = calculateMinutes(_timer.CurrentTime);
             Seconds = calculateSeconds(_timer.CurrentTime, Minutes);
@@ -102,12 +120,35 @@ namespace PomodoroTimer.ViewModel
             }
         }
 
-        private void ChangeMode()
+        private void WorkTimeOn(object sender)
         {
-
+            // Set Modes
+            WorkTimeChecked = true;
+            ShortBreakChecked = LongBreakChecked = false;
+            // Set in model and update visuals
+            _timer.setTimeMode(_timer.WorkTime);
+            Update();
+        }
+        private void ShortBreakOn(object sender)
+        {
+            // Set Modes
+            ShortBreakChecked = true;
+            WorkTimeChecked = LongBreakChecked = false;
+            // Set in model and update visuals
+            _timer.setTimeMode(_timer.ShortBreak);
+            Update();
+        }
+        private void LongBreakOn(object sender)
+        {
+            // Set Modes
+            LongBreakChecked = true;
+            ShortBreakChecked = WorkTimeChecked = false;
+            // Set in model and update visuals
+            _timer.setTimeMode(_timer.LongBreak);
+            Update();
         }
 
-        private void Skip()
+        private void SkipF(object sender)
         {
 
         }
@@ -126,6 +167,46 @@ namespace PomodoroTimer.ViewModel
                 return _startPause;
             }
         }
+
+        private ICommand _turnOnWorkTime = null;
+        public ICommand TurnOnWorkTime
+        {
+            get
+            {
+                if (_turnOnWorkTime == null)
+                {
+                    _turnOnWorkTime = new RelayCommand(WorkTimeOn, arg => true);
+                }
+                return _turnOnWorkTime;
+            }
+        }
+
+        private ICommand _turnOnShortBreak = null;
+        public ICommand TurnOnShortBreak
+        {
+            get
+            {
+                if (_turnOnShortBreak == null)
+                {
+                    _turnOnShortBreak = new RelayCommand(ShortBreakOn, arg => true);
+                }
+                return _turnOnShortBreak;
+            }
+        }
+
+        private ICommand _turnOnLongBreak = null;
+        public ICommand TurnOnLongBreak
+        {
+            get
+            {
+                if (_turnOnLongBreak == null)
+                {
+                    _turnOnLongBreak = new RelayCommand(LongBreakOn, arg => true);
+                }
+                return _turnOnLongBreak;
+            }
+        }
+
         #endregion
     }
 }

@@ -39,12 +39,20 @@ namespace PomodoroTimer.Model
         {
             CurrentTime -= 1;
             IntervalPassed?.Invoke();
+            if (CurrentTime <= 0)
+                ResetTimer();
             //Notify();
         }
 
-        public void setTime()
+        private void ResetTimer()
         {
-            // CurrentTime = ;
+            Timer.Stop();
+            // Change to next interval
+        }
+
+        public void setTimeMode(int timeMode)
+        {
+            CurrentTime = timeMode;
         }
 
         #endregion
