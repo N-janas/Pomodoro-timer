@@ -184,7 +184,7 @@
                 <Button HorizontalAlignment="Center" Background="Transparent" BorderThickness="0" Margin="0,0,0,5"
                         Style="{DynamicResource ButtonWithoutBorder}">
                     <Button.Content>
-                        <Image Source="Resources\skip_w.png"/>
+                        <Image Source="..\Resources\skip_w.png"/>
                     </Button.Content>
                 </Button>
             </Grid>
@@ -194,7 +194,7 @@
             <Button HorizontalAlignment="Center" Background="Transparent" Width="50" Margin="0,100,5,5" BorderThickness="0" 
                     Style="{DynamicResource ButtonWithoutBorder}">
                 <Button.Content>
-                    <Image Source="Resources\cog_w.png"/>
+                    <Image Source="..\Resources\cog_w.png"/>
                 </Button.Content>
             </Button>
         </Grid>
