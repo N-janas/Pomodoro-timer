@@ -57,6 +57,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\IntervalTimer.cs" />
+    <Compile Include="Model\IObserver.cs" />
+    <Compile Include="Model\ITimer.cs" />
     <Compile Include="ViewModel\BaseClasses\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClasses\ViewModelBase.cs" />
     <Page Include="View\MainWindow.xaml">
@@ -67,6 +69,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModel\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="ViewModel\Converters\TimeToStringTimeConverter.cs" />
     <Compile Include="ViewModel\TimerViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

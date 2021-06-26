@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PomodoroTimer"
         xmlns:vm="clr-namespace:PomodoroTimer.ViewModel"
+        xmlns:vmcv="clr-namespace:PomodoroTimer.ViewModel.Converters"
         mc:Ignorable="d"
         WindowStyle="SingleBorderWindow"
         Background="Transparent"
@@ -13,6 +14,9 @@
         MinWidth="800"
         Title="Pomodoro Timer" Height="450" Width="800">
     <Window.Resources>
+        <!--Viewmodel and converter-->
+        <vmcv:BoolToVisibilityConverter x:Key="convVisibility"/>
+        <vmcv:TimeToStringTimeConverter x:Key="convTimeString"/>
         <vm:TimerViewModel x:Key="timer"/>
 
         <Style x:Key="FocusVisual">
@@ -166,7 +170,16 @@
                         </Grid.RowDefinitions>
                         <!--Timer-->
                         <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Label Content="25:00" FontFamily="Roboto" FontSize="120" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <Label FontFamily="Roboto" FontSize="120"
+                                   Foreground="White" FontWeight="Bold" HorizontalAlignment="Center">
+                                <Label.Content>
+                                    <MultiBinding Converter="{StaticResource convTimeString}">
+                                        <Binding Path="Minutes"/>
+                                        <Binding Path="Seconds"/>
+                                    </MultiBinding>
+                                </Label.Content>
+                            </Label>
+                            
                         </Grid>
 
                         <!--Button-->
@@ -187,7 +200,8 @@
             <!--Skip button-->
             <Grid Grid.Row="1">
                 <Button HorizontalAlignment="Center" Background="Transparent" BorderThickness="0" Margin="0,0,0,5"
-                        Style="{DynamicResource ButtonWithoutBorder}">
+                        Style="{DynamicResource ButtonWithoutBorder}"
+                        Visibility="{Binding SkipVisible, Converter={StaticResource convVisibility}}">
                     <Button.Content>
                         <Image Source="..\Resources\skip_w.png"/>
                     </Button.Content>

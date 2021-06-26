@@ -8,10 +8,15 @@ using System.Diagnostics;
 
 namespace PomodoroTimer.Model
 {
-    class IntervalTimer {
-        public int WorkTime { get; private set; } = getMiliseconds(15);
-        public int ShortBreak { get; private set; } = getMiliseconds(6);
-        public int LongBreak { get; private set; } = getMiliseconds(10);
+    class IntervalTimer// : ITimer
+    {
+        //private List<IObserver> observers = new List<IObserver>();
+
+        public event Action IntervalPassed;
+
+        public int WorkTime { get; private set; } = getSeconds(15);
+        public int ShortBreak { get; private set; } = getSeconds(6);
+        public int LongBreak { get; private set; } = getSeconds(10);
         public int CurrentTime { get; private set; }
         public Timer Timer { get; private set; }
 
@@ -19,24 +24,41 @@ namespace PomodoroTimer.Model
         {
             // Set new timer (interval 1 sec)
             Timer = new Timer(1000);
-            // Assign countdown for the interval event and starting time as work time
+            // Assign countdown for the interval event 
             Timer.Elapsed += CountDown;
+            // Assign starting time as work time
             CurrentTime = WorkTime;
         }
 
         #region Methods
         // Get miliseconds from minutes
-        private static int getMiliseconds(int mins) => mins * 60 * 1000;
+        private static int getSeconds(int mins) => mins * 60;
 
+        // Countdown time and notify viewmodel 
         private void CountDown(Object source, ElapsedEventArgs e)
         {
             CurrentTime -= 1;
+            IntervalPassed?.Invoke();
+            //Notify();
         }
 
         public void setTime()
         {
             // CurrentTime = ;
         }
+
+        #endregion
+
+        #region ITimer methods
+        //public void Attach(IObserver observer) => observers.Add(observer);
+        //public void Detach(IObserver observer) => observers.Remove(observer);
+        //public void Notify()
+        //{
+        //    foreach (var observer in observers)
+        //    {
+        //        observer.Update(this);
+        //    }
+        //}
         #endregion
     }
 }
