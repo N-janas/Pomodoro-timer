@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PomodoroTimer"
+        xmlns:vm="clr-namespace:PomodoroTimer.ViewModel"
         mc:Ignorable="d"
         WindowStyle="SingleBorderWindow"
         Background="Transparent"
@@ -12,6 +13,8 @@
         MinWidth="800"
         Title="Pomodoro Timer" Height="450" Width="800">
     <Window.Resources>
+        <vm:TimerViewModel x:Key="timer"/>
+
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -109,7 +112,7 @@
     </Window.Resources>
 
     <!--App grid-->
-    <Grid>
+    <Grid DataContext="{StaticResource timer}">
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="#270c42" Offset="0.0"/>
@@ -168,11 +171,13 @@
 
                         <!--Button-->
                         <Grid Grid.Row="1">
-                            <Button Background="MidnightBlue" BorderBrush="MidnightBlue" Content="Start"
+                            <Button Background="MidnightBlue" BorderBrush="MidnightBlue" 
+                                    Content="{Binding StartButtonContent}"
                                     FontFamily="Roboto"
                                     FontSize="50"
                                     Foreground="White"
-                                    FontWeight="Bold" Style="{DynamicResource ButtonStyleRounded}">
+                                    FontWeight="Bold" Style="{DynamicResource ButtonStyleRounded}"
+                                    Command="{Binding StartPause}">
                             </Button>
                         </Grid>
                     </Grid>
