@@ -8,52 +8,33 @@ using System.Diagnostics;
 
 namespace PomodoroTimer.Model
 {
-    class IntervalTimer
+    public class IntervalTimer : ITimer
     {
-        public event Action IntervalPassed;
-
-        public int WorkTime { get; private set; } = getSeconds(15);
-        public int ShortBreak { get; private set; } = getSeconds(6);
-        public int LongBreak { get; private set; } = getSeconds(10);
-        public int CurrentTime { get; private set; }
-        public Timer Timer { get; private set; }
+        private Timer _timer;
+        public int Interval { get; set; } = 1000;
+        public event ElapsedEventHandler Elapsed
+        {
+            add { _timer.Elapsed += value; }
+            remove { _timer.Elapsed -= value; }
+        }
 
         public IntervalTimer()
         {
-            // Set new timer (interval 1 sec)
-            Timer = new Timer(1000);
-            // Assign countdown for the interval event 
-            Timer.Elapsed += CountDown;
-            // Assign starting time as work time
-            CurrentTime = WorkTime;
+            _timer = new Timer();
+
         }
 
         #region Methods
-        // Get miliseconds from minutes
-        private static int getSeconds(int mins) => mins * 60;
-
-        // Countdown time and notify viewmodel 
-        private void CountDown(Object source, ElapsedEventArgs e)
+        public void Start()
         {
-            CurrentTime -= 1;
-            // Notify
-            IntervalPassed?.Invoke();
-            // Stop when time ended
-            if (CurrentTime <= 0)
-                ResetTimer();
+            _timer.Interval = Interval;
+            _timer.Start();
         }
 
-        private void ResetTimer()
+        public void Stop()
         {
-            Timer.Stop();
-            // Change to next interval
+            _timer.Stop();
         }
-
-        public void setTimeMode(int timeMode)
-        {
-            CurrentTime = timeMode;
-        }
-
         #endregion
     }
 }

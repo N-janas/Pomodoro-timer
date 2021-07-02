@@ -16,11 +16,11 @@ namespace PomodoroTimer.ViewModel
     class TimerViewModel : ViewModelBase
     {
         #region Fields
+        private PomodoroOperator _pomodoro = new PomodoroOperator(new IntervalTimer());
         private int _minutes;
         private int _seconds;
         private string _startButtonContent;
         private bool _skipVisible;
-        private IntervalTimer _timer = new IntervalTimer();
         private bool _workTimeChecked;
         private bool _shortBreakChecked;
         private bool _longBreakChecked;
@@ -34,7 +34,7 @@ namespace PomodoroTimer.ViewModel
             WorkTimeChecked = true;
             ShortBreakChecked = LongBreakChecked = false;
             // Attach viewmodel's update as observer
-            _timer.IntervalPassed += Update;
+            _pomodoro.IntervalPassed += Update;
             // Assign starter label 
             _startButtonContent = res.Start;
             // Assign starter button visibility
@@ -84,14 +84,14 @@ namespace PomodoroTimer.ViewModel
         // Updating time
         private void Update()
         {
-            Minutes = calculateMinutes(_timer.CurrentTime);
-            Seconds = calculateSeconds(_timer.CurrentTime, Minutes);
+            Minutes = CalculateMinutes(_pomodoro.CurrentTime);
+            Seconds = CalculateSeconds(_pomodoro.CurrentTime, Minutes);
         }
         // Get minutes of time
-        private int calculateMinutes(int time) => time / 60;
+        private int CalculateMinutes(int time) => time / 60;
 
         // Get rest of seconds
-        private int calculateSeconds(int time, int minutes) => time - minutes*60;
+        private int CalculateSeconds(int time, int minutes) => time - minutes*60;
 
         private void StartPauseF(object sender)
         {
@@ -99,7 +99,7 @@ namespace PomodoroTimer.ViewModel
             if (_startButtonContent == res.Start)
             {
                 // Start timer
-                _timer.Timer.Start();
+                _pomodoro.Timer.Start();
                 // Set other label
                 StartButtonContent = res.Pause;
                 // Set skip button visible
@@ -109,7 +109,7 @@ namespace PomodoroTimer.ViewModel
             else if (_startButtonContent == res.Pause)
             {
                 // Pause timer
-                _timer.Timer.Stop();
+                _pomodoro.Timer.Stop();
                 // Set other label
                 StartButtonContent = res.Start;
                 // Set skip to hidden
@@ -123,7 +123,7 @@ namespace PomodoroTimer.ViewModel
             WorkTimeChecked = true;
             ShortBreakChecked = LongBreakChecked = false;
             // Set in model and update visuals
-            _timer.setTimeMode(_timer.WorkTime);
+            _pomodoro.SetTimeMode(_pomodoro.WorkTime);
             Update();
         }
         private void ShortBreakOn(object sender)
@@ -132,7 +132,7 @@ namespace PomodoroTimer.ViewModel
             ShortBreakChecked = true;
             WorkTimeChecked = LongBreakChecked = false;
             // Set in model and update visuals
-            _timer.setTimeMode(_timer.ShortBreak);
+            _pomodoro.SetTimeMode(_pomodoro.ShortBreak);
             Update();
         }
         private void LongBreakOn(object sender)
@@ -141,7 +141,7 @@ namespace PomodoroTimer.ViewModel
             LongBreakChecked = true;
             ShortBreakChecked = WorkTimeChecked = false;
             // Set in model and update visuals
-            _timer.setTimeMode(_timer.LongBreak);
+            _pomodoro.SetTimeMode(_pomodoro.LongBreak);
             Update();
         }
 
