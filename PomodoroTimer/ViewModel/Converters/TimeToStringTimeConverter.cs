@@ -19,6 +19,12 @@ namespace PomodoroTimer.ViewModel.Converters
                 mins = $"0{mins}";
             if ((int)values[1] < 10)
                 secs = $"0{secs}";
+
+            if ((int)values[0] <= 0 && (int)values[1] <= 0)
+            {
+                mins = "00";
+                secs = "00";
+            }
             return $"{mins}:{secs}";
         }
 

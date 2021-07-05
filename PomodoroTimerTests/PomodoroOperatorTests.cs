@@ -10,7 +10,7 @@ using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace PomodoroTimerTests
 {
-    public class IntervalTimerTests
+    public class PomodoroOperatorTests
     {
         [Fact]
         public void CountDown_CurrentTimeGreaterThanZero_SubtractIntervalFromCurrentTime()
