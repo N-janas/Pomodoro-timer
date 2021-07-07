@@ -21,7 +21,11 @@ namespace PomodoroTimer.Model
         public IntervalTimer()
         {
             _timer = new Timer();
+        }
 
+        ~IntervalTimer()
+        {
+            _timer.Dispose();
         }
 
         #region Methods
@@ -34,6 +38,11 @@ namespace PomodoroTimer.Model
         public void Stop()
         {
             _timer.Stop();
+        }
+
+        public bool IsRunning()
+        {
+            return _timer.Enabled;
         }
         #endregion
     }

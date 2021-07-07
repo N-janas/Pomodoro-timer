@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PomodoroTimer.Model
 {
-    abstract class IteratorAggregate : IEnumerable
+    public abstract class IteratorAggregate : IEnumerable
     {
         public abstract IEnumerator GetEnumerator();
     }

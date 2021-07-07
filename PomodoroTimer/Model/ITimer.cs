@@ -12,6 +12,7 @@ namespace PomodoroTimer.Model
         int Interval { get; set; }
         void Start();
         void Stop();
+        bool IsRunning();
         event ElapsedEventHandler Elapsed;
     }
 }

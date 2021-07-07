@@ -17,6 +17,9 @@
         <!--Viewmodel and converter-->
         <vmcv:BoolToVisibilityConverter x:Key="convVisibility"/>
         <vmcv:TimeToStringTimeConverter x:Key="convTimeString"/>
+        <vmcv:ModeWorkTimeToBoolConverter x:Key="convWorkTime"/>
+        <vmcv:ModeShortBreakToBoolConverter x:Key="convShortBreak"/>
+        <vmcv:ModeLongBreakToBoolConverter x:Key="convLongBreak"/>
         <vm:TimerViewModel x:Key="timer"/>
 
         <Style x:Key="FocusVisual">
@@ -142,15 +145,21 @@
             <Border BorderBrush="#59ffffff" Background="#59ffffff" BorderThickness="1" 
                     CornerRadius="16" Margin="5,0,5,5">
                 <StackPanel>
-                    <ToggleButton Content="Work Time" Foreground="White" FontFamily="Roboto" FontSize="28"
-                            Margin="20" Background="Transparent" BorderBrush="Transparent"
-                                  IsChecked="{Binding WorkTimeChecked}" Command="{Binding TurnOnWorkTime}"/>
-                    <ToggleButton Content="Short break" Foreground="White" FontFamily="Roboto" FontSize="28"
-                            Margin="20" Background="Transparent" BorderBrush="Transparent"
-                                  IsChecked="{Binding ShortBreakChecked}" Command="{Binding TurnOnShortBreak}"/>
-                    <ToggleButton Content="Long break" Foreground="White" FontFamily="Roboto" FontSize="28"
-                            Margin="20" Background="Transparent" BorderBrush="Transparent" 
-                                  IsChecked="{Binding LongBreakChecked}" Command="{Binding TurnOnLongBreak}"/>
+                    <RadioButton x:Name="WorkTimeBtn" GroupName="Modes" Style="{StaticResource {x:Type ToggleButton}}"
+                                 Content="Work Time" Foreground="White" FontFamily="Roboto" FontSize="28"
+                                 Margin="20" Background="Transparent" BorderBrush="Transparent"
+                                 IsChecked="{Binding VisibleTimeMode, Converter={StaticResource convWorkTime}, Mode=OneWay}"
+                                 Command="{Binding TurnOnWorkTime}"/>
+                    <RadioButton x:Name="ShortBreakBtn" GroupName="Modes" Style="{StaticResource {x:Type ToggleButton}}"
+                                 Content="Short break" Foreground="White" FontFamily="Roboto" FontSize="28"
+                                 Margin="20" Background="Transparent" BorderBrush="Transparent"
+                                 IsChecked="{Binding VisibleTimeMode, Converter={StaticResource convShortBreak}, Mode=OneWay}"
+                                 Command="{Binding TurnOnShortBreak}"/>
+                    <RadioButton x:Name="LongBreakBtn" GroupName="Modes" Style="{StaticResource {x:Type ToggleButton}}"
+                                 Content="Long break" Foreground="White" FontFamily="Roboto" FontSize="28"
+                                 Margin="20" Background="Transparent" BorderBrush="Transparent"
+                                 IsChecked="{Binding VisibleTimeMode, Converter={StaticResource convLongBreak}, Mode=OneWay}"
+                                 Command="{Binding TurnOnLongBreak}"/>
                 </StackPanel>
             </Border>
             
@@ -176,7 +185,7 @@
                             <Label FontFamily="Roboto" FontSize="120"
                                    Foreground="White" FontWeight="Bold" HorizontalAlignment="Center">
                                 <Label.Content>
-                                    <MultiBinding Converter="{StaticResource convTimeString}">
+                                    <MultiBinding Converter="{StaticResource convTimeString}" Mode="OneWay">
                                         <Binding Path="Minutes"/>
                                         <Binding Path="Seconds"/>
                                     </MultiBinding>
@@ -204,7 +213,7 @@
             <Grid Grid.Row="1">
                 <Button HorizontalAlignment="Center" Background="Transparent" BorderThickness="0" Margin="0,0,0,5"
                         Style="{DynamicResource ButtonWithoutBorder}"
-                        Visibility="{Binding SkipVisible, Converter={StaticResource convVisibility}}">
+                        Visibility="{Binding SkipVisible, Converter={StaticResource convVisibility}, Mode=OneWay}">
                     <Button.Content>
                         <Image Source="..\Resources\skip_w.png"/>
                     </Button.Content>

@@ -8,12 +8,13 @@ using System.Globalization;
 
 namespace PomodoroTimer.ViewModel.Converters
 {
-    class BoolToVisibilityConverter : IValueConverter
+    using Model.Modes;
+    class ModeLongBreakToBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((bool)value) return System.Windows.Visibility.Visible;
-            return System.Windows.Visibility.Hidden;
+            if (value is LongBreak) return true;
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

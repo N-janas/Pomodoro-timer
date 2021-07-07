@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Diagnostics;
+using System.Windows;
 
 namespace PomodoroTimer.ViewModel
 {
     using Model;
+    using Model.Modes;
     using BaseClasses;
     // Resources' alias
     using res = Properties.Resources;
@@ -24,17 +26,18 @@ namespace PomodoroTimer.ViewModel
         private bool _workTimeChecked;
         private bool _shortBreakChecked;
         private bool _longBreakChecked;
+        private TimeMode _visibleTimeMode;
         #endregion
 
         public TimerViewModel()
         {
-            // Set starter timer
-            Update();
+            UpdateTime();
             // Set mode 
             WorkTimeChecked = true;
             ShortBreakChecked = LongBreakChecked = false;
             // Attach viewmodel's update as observer
-            _pomodoro.IntervalPassed += Update;
+            _pomodoro.IntervalPassed += UpdateTime;
+            _pomodoro.ModeChanged += UpdateVisibleMode;
             // Assign starter label 
             _startButtonContent = res.Start;
             // Assign starter button visibility
@@ -78,21 +81,28 @@ namespace PomodoroTimer.ViewModel
             get { return _longBreakChecked; }
             set { _longBreakChecked = value; onPropertyChanged(nameof(LongBreakChecked)); }
         }
+        public TimeMode VisibleTimeMode
+        {
+            get { return _visibleTimeMode; }
+            set { _visibleTimeMode = value; onPropertyChanged(nameof(VisibleTimeMode)); }
+        }
         #endregion
 
         #region Methods
-        // Updating time
-        private void Update()
+        private void UpdateTime()
         {
             Minutes = CalculateMinutes(_pomodoro.CurrentTime);
             Seconds = CalculateSeconds(_pomodoro.CurrentTime, Minutes);
         }
-        // Get minutes of time
+
         private int CalculateMinutes(int time) => time / 60;
 
-        // Get rest of seconds
         private int CalculateSeconds(int time, int minutes) => time - minutes*60;
 
+        private void UpdateVisibleMode()
+        {
+            VisibleTimeMode = _pomodoro.CurrentMode;
+        }
         private void StartPauseF(object sender)
         {
             // Start was clicked
@@ -119,35 +129,57 @@ namespace PomodoroTimer.ViewModel
 
         private void WorkTimeOn(object sender)
         {
-            // Set Modes
-            WorkTimeChecked = true;
-            ShortBreakChecked = LongBreakChecked = false;
-            // Set in model and update visuals
-            _pomodoro.SetTimeMode(_pomodoro.WorkTime);
-            Update();
+            SetModeOn(new WorkTime());
         }
         private void ShortBreakOn(object sender)
         {
-            // Set Modes
-            ShortBreakChecked = true;
-            WorkTimeChecked = LongBreakChecked = false;
-            // Set in model and update visuals
-            _pomodoro.SetTimeMode(_pomodoro.ShortBreak);
-            Update();
+            SetModeOn(new ShortBreak());
         }
         private void LongBreakOn(object sender)
         {
-            // Set Modes
-            LongBreakChecked = true;
-            ShortBreakChecked = WorkTimeChecked = false;
-            // Set in model and update visuals
-            _pomodoro.SetTimeMode(_pomodoro.LongBreak);
-            Update();
+            SetModeOn(new LongBreak());
+        }
+
+        private void SetModeOn(TimeMode mode)
+        {
+            if (_pomodoro.Timer.IsRunning())
+            {
+                _pomodoro.Timer.Stop();
+                var result = ShowChangeModeDialog();
+                if (result == MessageBoxResult.Yes)
+                {
+                    _pomodoro.Skip();
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    UpdateVisibleMode();
+                    _pomodoro.Timer.Start();
+                }
+            }
+            else
+            {
+                SetVisibleTimeMode(mode);
+            }
+        }
+
+        public void SetVisibleTimeMode(TimeMode timeMode)
+        {
+            _pomodoro.SetTimeMode(timeMode);
         }
 
         private void SkipF(object sender)
         {
+            _pomodoro.Skip();
+        }
 
+        private MessageBoxResult ShowChangeModeDialog()
+        {
+            return MessageBox.Show(
+                "It will skip current mode",
+                "Are you sure ?",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+            );
         }
         #endregion
 
@@ -165,6 +197,19 @@ namespace PomodoroTimer.ViewModel
             }
         }
 
+        private ICommand _skip = null;
+        public ICommand Skip
+        {
+            get
+            {
+                if (_skip == null)
+                {
+                    _skip = new RelayCommand(SkipF, arg => true);
+                }
+                return _skip;
+            }
+        }
+
         private ICommand _turnOnWorkTime = null;
         public ICommand TurnOnWorkTime
         {
@@ -172,7 +217,7 @@ namespace PomodoroTimer.ViewModel
             {
                 if (_turnOnWorkTime == null)
                 {
-                    _turnOnWorkTime = new RelayCommand(WorkTimeOn, arg => true);
+                    _turnOnWorkTime = new RelayCommand(WorkTimeOn, arg => !(_pomodoro.CurrentMode is WorkTime)); //!(_pomodoro.CurrentMode is WorkTime)
                 }
                 return _turnOnWorkTime;
             }
@@ -185,7 +230,7 @@ namespace PomodoroTimer.ViewModel
             {
                 if (_turnOnShortBreak == null)
                 {
-                    _turnOnShortBreak = new RelayCommand(ShortBreakOn, arg => true);
+                    _turnOnShortBreak = new RelayCommand(ShortBreakOn, arg => !(_pomodoro.CurrentMode is ShortBreak));
                 }
                 return _turnOnShortBreak;
             }
@@ -198,7 +243,7 @@ namespace PomodoroTimer.ViewModel
             {
                 if (_turnOnLongBreak == null)
                 {
-                    _turnOnLongBreak = new RelayCommand(LongBreakOn, arg => true);
+                    _turnOnLongBreak = new RelayCommand(LongBreakOn, arg => !(_pomodoro.CurrentMode is LongBreak));
                 }
                 return _turnOnLongBreak;
             }

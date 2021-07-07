@@ -92,8 +92,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Iterator.cs" />
+    <Compile Include="Model\IteratorAggregate.cs" />
     <Compile Include="Model\ITimer.cs" />
     <Compile Include="Model\IntervalTimer.cs" />
+    <Compile Include="Model\LoopedIterator.cs" />
+    <Compile Include="Model\BreaksCollection.cs" />
+    <Compile Include="Model\Modes\LongBreak.cs" />
+    <Compile Include="Model\Modes\ShortBreak.cs" />
+    <Compile Include="Model\Modes\TimeMode.cs" />
+    <Compile Include="Model\Modes\WorkTime.cs" />
     <Compile Include="Model\PomodoroOperator.cs" />
     <Compile Include="ViewModel\BaseClasses\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClasses\ViewModelBase.cs" />
@@ -106,6 +114,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModel\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="ViewModel\Converters\ModeLongBreakToBoolConverter.cs" />
+    <Compile Include="ViewModel\Converters\ModeShortBreakToBoolConverter.cs" />
+    <Compile Include="ViewModel\Converters\ModeWorkTimeToBoolConverter.cs" />
     <Compile Include="ViewModel\Converters\TimeToStringTimeConverter.cs" />
     <Compile Include="ViewModel\TimerViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">

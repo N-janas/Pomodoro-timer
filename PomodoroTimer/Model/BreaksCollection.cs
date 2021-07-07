@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 
 namespace PomodoroTimer.Model
 {
-    class BreaksCollection : IteratorAggregate
+    using Modes;
+    public class BreaksCollection : IteratorAggregate
     {
-        private List<Modes> _breaksOrder = new List<Modes>();
+        private List<TimeMode> _breaksOrder = new List<TimeMode>();
 
-        public List<Modes> GetItems()
+        public List<TimeMode> GetItems()
         {
             return _breaksOrder;
         }
 
-        public void AddItem(Modes breakType)
+        public void AddItem(TimeMode breakType)
         {
             _breaksOrder.Add(breakType);
         }
@@ -25,11 +26,5 @@ namespace PomodoroTimer.Model
         {
             return new LoopedIterator(this);
         }
-    }
-
-    enum Modes
-    {
-        ShortB,
-        LongB,
     }
 }
