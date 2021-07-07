@@ -62,8 +62,6 @@ namespace PomodoroTimer.Model
             SetTimeMode(CurrentMode.NextMode(_breaksCollection));
         }
 
-
-
         public void SetTimeMode(TimeMode timeMode)
         {
             CurrentMode = timeMode;

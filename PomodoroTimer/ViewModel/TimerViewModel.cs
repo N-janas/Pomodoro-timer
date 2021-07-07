@@ -108,39 +108,31 @@ namespace PomodoroTimer.ViewModel
             // Start was clicked
             if (_startButtonContent == res.Start)
             {
-                // Start timer
                 _pomodoro.Timer.Start();
-                // Set other label
-                StartButtonContent = res.Pause;
-                // Set skip button visible
-                SkipVisible = true;
+                StartClockUpdateView();
             }
             // Pause was clicked
             else if (_startButtonContent == res.Pause)
             {
-                // Pause timer
                 _pomodoro.Timer.Stop();
-                // Set other label
-                StartButtonContent = res.Start;
-                // Set skip to hidden
-                SkipVisible = false;
+                StopClockUpdateView();
             }
         }
 
         private void WorkTimeOn(object sender)
         {
-            SetModeOn(new WorkTime());
+            TrySetModeOn(new WorkTime());
         }
         private void ShortBreakOn(object sender)
         {
-            SetModeOn(new ShortBreak());
+            TrySetModeOn(new ShortBreak());
         }
         private void LongBreakOn(object sender)
         {
-            SetModeOn(new LongBreak());
+            TrySetModeOn(new LongBreak());
         }
 
-        private void SetModeOn(TimeMode mode)
+        private void TrySetModeOn(TimeMode mode)
         {
             if (_pomodoro.Timer.IsRunning())
             {
@@ -148,7 +140,8 @@ namespace PomodoroTimer.ViewModel
                 var result = ShowChangeModeDialog();
                 if (result == MessageBoxResult.Yes)
                 {
-                    _pomodoro.Skip();
+                    SetVisibleTimeMode(mode);
+                    StopClockUpdateView();
                 }
                 else if (result == MessageBoxResult.No)
                 {
@@ -162,21 +155,34 @@ namespace PomodoroTimer.ViewModel
             }
         }
 
-        public void SetVisibleTimeMode(TimeMode timeMode)
+        private void StopClockUpdateView()
         {
-            _pomodoro.SetTimeMode(timeMode);
+            StartButtonContent = res.Start;
+            SkipVisible = false;
+        }
+        
+        private void StartClockUpdateView()
+        {
+            StartButtonContent = res.Pause;
+            SkipVisible = true;
         }
 
         private void SkipF(object sender)
         {
             _pomodoro.Skip();
+            StopClockUpdateView();
+        }
+
+        public void SetVisibleTimeMode(TimeMode timeMode)
+        {
+            _pomodoro.SetTimeMode(timeMode);
         }
 
         private MessageBoxResult ShowChangeModeDialog()
         {
             return MessageBox.Show(
-                "It will skip current mode",
-                "Are you sure ?",
+                "It will cancel current mode.",
+                "Are you sure?",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning
             );
