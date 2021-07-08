@@ -10,7 +10,7 @@ namespace PomodoroTimer.Model
     class LoopedIterator : Iterator
     {
         private BreaksCollection _breaksCollection;
-        private int _position = -1;
+        private static int _position = -1;
 
         public LoopedIterator(BreaksCollection breaksCollection)
         {

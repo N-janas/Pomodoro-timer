@@ -9,12 +9,13 @@ using System.Diagnostics;
 namespace PomodoroTimer.Model
 {
     using Modes;
+    using Settings = Properties.Settings;
     public class PomodoroOperator
     {
         private BreaksCollection _breaksCollection = new BreaksCollection();
         public event Action IntervalPassed;
         public event Action ModeChanged;
-        public int ShortBreakAmount { get; private set; } = 3;
+        public int ShortBreakAmount { get; private set; } = Settings.Default.ShortBreaksCount;
         public TimeMode CurrentMode { get; private set; }
         public int CurrentTime { get; private set; }
         public ITimer Timer { get; }

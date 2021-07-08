@@ -32,9 +32,6 @@ namespace PomodoroTimer.ViewModel
         public TimerViewModel()
         {
             UpdateTime();
-            // Set mode 
-            WorkTimeChecked = true;
-            ShortBreakChecked = LongBreakChecked = false;
             // Attach viewmodel's update as observer
             _pomodoro.IntervalPassed += UpdateTime;
             _pomodoro.ModeChanged += UpdateVisibleMode;
@@ -65,21 +62,6 @@ namespace PomodoroTimer.ViewModel
         {
             get { return _skipVisible; }
             set { _skipVisible = value; onPropertyChanged(nameof(SkipVisible)); }
-        }
-        public bool WorkTimeChecked
-        {
-            get { return _workTimeChecked; }
-            set { _workTimeChecked = value; onPropertyChanged(nameof(WorkTimeChecked)); }
-        }
-        public bool ShortBreakChecked
-        {
-            get { return _shortBreakChecked; }
-            set { _shortBreakChecked = value; onPropertyChanged(nameof(ShortBreakChecked)); }
-        }
-        public bool LongBreakChecked
-        {
-            get { return _longBreakChecked; }
-            set { _longBreakChecked = value; onPropertyChanged(nameof(LongBreakChecked)); }
         }
         public TimeMode VisibleTimeMode
         {

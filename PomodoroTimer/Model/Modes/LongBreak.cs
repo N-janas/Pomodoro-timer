@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace PomodoroTimer.Model.Modes
 {
+    using Settings = Properties.Settings;
     class LongBreak : TimeMode
     {
         public LongBreak()
         {
-            Duration = GetSeconds(10);
+            Duration = GetSeconds(Settings.Default.LongBreakMins);
         }
 
         public override TimeMode NextMode(BreaksCollection breaksCollection = null)

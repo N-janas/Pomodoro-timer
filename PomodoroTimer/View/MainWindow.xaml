@@ -40,7 +40,7 @@
         <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
         <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
         <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-        <!--Rounded start pause button--> 
+        <!--Rounded start pause button-->
         <Style x:Key="ButtonStyleRounded" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -116,6 +116,44 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--Toggle buttons for mode changing--> 
+        <Style x:Key="ToggleButtonStyle1" TargetType="{x:Type ToggleButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="border" CornerRadius="8" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#81ffffff"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#81ffffff"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#81ffffff"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#81ffffff"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="#FF11A42C"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF11A42C"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#ffffffff"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <!--App grid-->
@@ -145,24 +183,24 @@
             <Border BorderBrush="#59ffffff" Background="#59ffffff" BorderThickness="1" 
                     CornerRadius="16" Margin="5,0,5,5">
                 <StackPanel>
-                    <RadioButton x:Name="WorkTimeBtn" GroupName="Modes" Style="{StaticResource {x:Type ToggleButton}}"
+                    <RadioButton x:Name="WorkTimeBtn" GroupName="Modes" Style="{DynamicResource ToggleButtonStyle1}"
                                  Content="Work Time" Foreground="White" FontFamily="Roboto" FontSize="28"
                                  Margin="20" Background="Transparent" BorderBrush="Transparent"
                                  IsChecked="{Binding VisibleTimeMode, Converter={StaticResource convWorkTime}, Mode=OneWay}"
                                  Command="{Binding TurnOnWorkTime}"/>
-                    <RadioButton x:Name="ShortBreakBtn" GroupName="Modes" Style="{StaticResource {x:Type ToggleButton}}"
+                    <RadioButton x:Name="ShortBreakBtn" GroupName="Modes" Style="{DynamicResource ToggleButtonStyle1}"
                                  Content="Short break" Foreground="White" FontFamily="Roboto" FontSize="28"
                                  Margin="20" Background="Transparent" BorderBrush="Transparent"
                                  IsChecked="{Binding VisibleTimeMode, Converter={StaticResource convShortBreak}, Mode=OneWay}"
                                  Command="{Binding TurnOnShortBreak}"/>
-                    <RadioButton x:Name="LongBreakBtn" GroupName="Modes" Style="{StaticResource {x:Type ToggleButton}}"
+                    <RadioButton x:Name="LongBreakBtn" GroupName="Modes" Style="{DynamicResource ToggleButtonStyle1}"
                                  Content="Long break" Foreground="White" FontFamily="Roboto" FontSize="28"
                                  Margin="20" Background="Transparent" BorderBrush="Transparent"
                                  IsChecked="{Binding VisibleTimeMode, Converter={StaticResource convLongBreak}, Mode=OneWay}"
                                  Command="{Binding TurnOnLongBreak}"/>
                 </StackPanel>
             </Border>
-            
+
         </StackPanel>
 
         <!--Timer-->
@@ -191,7 +229,7 @@
                                     </MultiBinding>
                                 </Label.Content>
                             </Label>
-                            
+
                         </Grid>
 
                         <!--Button-->
