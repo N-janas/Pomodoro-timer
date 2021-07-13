@@ -7,11 +7,11 @@ using System.ComponentModel;
 
 namespace PomodoroTimer.ViewModel.BaseClasses
 {
-    class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void onPropertyChanged(params string[] namesOfProperties)
+        protected void OnPropertyChanged(params string[] namesOfProperties)
         {
             if (PropertyChanged != null)
             {

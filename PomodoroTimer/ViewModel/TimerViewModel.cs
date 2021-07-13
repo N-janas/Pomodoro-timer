@@ -23,13 +23,10 @@ namespace PomodoroTimer.ViewModel
         private int _seconds;
         private string _startButtonContent;
         private bool _skipVisible;
-        private bool _workTimeChecked;
-        private bool _shortBreakChecked;
-        private bool _longBreakChecked;
         private TimeMode _visibleTimeMode;
         #endregion
 
-        public TimerViewModel()
+        public TimerViewModel(NavigationMediator navigationMediator)
         {
             UpdateTime();
             // Attach viewmodel's update as observer
@@ -45,28 +42,28 @@ namespace PomodoroTimer.ViewModel
         public int Minutes
         {
             get { return _minutes; }
-            set { _minutes = value; onPropertyChanged(nameof(Minutes)); }
+            set { _minutes = value; OnPropertyChanged(nameof(Minutes)); }
         }
         public int Seconds
         {
             get { return _seconds; }
-            set { _seconds = value; onPropertyChanged(nameof(Seconds)); }
+            set { _seconds = value; OnPropertyChanged(nameof(Seconds)); }
 
         }
         public string StartButtonContent
         {
             get { return _startButtonContent; }
-            set { _startButtonContent = value; onPropertyChanged(nameof(StartButtonContent)); }
+            set { _startButtonContent = value; OnPropertyChanged(nameof(StartButtonContent)); }
         }
         public bool SkipVisible
         {
             get { return _skipVisible; }
-            set { _skipVisible = value; onPropertyChanged(nameof(SkipVisible)); }
+            set { _skipVisible = value; OnPropertyChanged(nameof(SkipVisible)); }
         }
         public TimeMode VisibleTimeMode
         {
             get { return _visibleTimeMode; }
-            set { _visibleTimeMode = value; onPropertyChanged(nameof(VisibleTimeMode)); }
+            set { _visibleTimeMode = value; OnPropertyChanged(nameof(VisibleTimeMode)); }
         }
         #endregion
 
@@ -234,6 +231,20 @@ namespace PomodoroTimer.ViewModel
                     _turnOnLongBreak = new RelayCommand(LongBreakOn, arg => !(_pomodoro.CurrentMode is LongBreak));
                 }
                 return _turnOnLongBreak;
+            }
+        }
+
+        private ICommand _goToSettings = null;
+
+        public ICommand GoToSettings
+        {
+            get
+            {
+                if (_goToSettings == null)
+                {
+                    _goToSettings = new RelayCommand(null, arg => true);
+                }
+                return _goToSettings;
             }
         }
 
