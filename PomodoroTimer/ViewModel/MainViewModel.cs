@@ -11,7 +11,7 @@ namespace PomodoroTimer.ViewModel
     using ViewModel.BaseClasses;
     public class MainViewModel : ViewModelBase
     {
-        private NavigationMediator _navigationMediator { get; set; }
+        private readonly NavigationMediator _navigationMediator;
         public ViewModelBase CurrentViewModel => _navigationMediator.CurrentViewModel;
 
         public MainViewModel(NavigationMediator navigationMediator)
@@ -23,7 +23,6 @@ namespace PomodoroTimer.ViewModel
 
         private void OnCurrentViewModelChanged()
         {
-            Debug.WriteLine("emmm");
             OnPropertyChanged(nameof(CurrentViewModel));
         }
     }

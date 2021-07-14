@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace PomodoroTimer.ViewModel.BaseClasses
 {
@@ -17,6 +18,7 @@ namespace PomodoroTimer.ViewModel.BaseClasses
             {
                 foreach (var prop in namesOfProperties)
                 {
+                    Debug.WriteLine(prop);
                     PropertyChanged(this, new PropertyChangedEventArgs(prop));
                 }
             }

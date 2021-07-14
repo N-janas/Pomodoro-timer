@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Globalization;
+using System.Windows;
 
 namespace PomodoroTimer.ViewModel.Converters
 {
@@ -12,6 +13,9 @@ namespace PomodoroTimer.ViewModel.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            if (values.Any(x => x == DependencyProperty.UnsetValue))
+                return DependencyProperty.UnsetValue;
+
             string mins = values[0].ToString();
             string secs = values[1].ToString();
 

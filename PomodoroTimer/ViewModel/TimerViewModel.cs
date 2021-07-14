@@ -170,7 +170,7 @@ namespace PomodoroTimer.ViewModel
         }
         private void GoToSettingsF(object sender)
         {
-            _navigationMediator.CurrentViewModel = new SettingsViewModel(_navigationMediator);
+            _navigationMediator.CurrentViewModel = new SettingsViewModel(_navigationMediator, this);
         }
 
         #endregion
@@ -209,7 +209,7 @@ namespace PomodoroTimer.ViewModel
             {
                 if (_turnOnWorkTime == null)
                 {
-                    _turnOnWorkTime = new RelayCommand(WorkTimeOn, arg => !(_pomodoro.CurrentMode is WorkTime)); //!(_pomodoro.CurrentMode is WorkTime)
+                    _turnOnWorkTime = new RelayCommand(WorkTimeOn, arg => !(_pomodoro.CurrentMode is WorkTime));
                 }
                 return _turnOnWorkTime;
             }

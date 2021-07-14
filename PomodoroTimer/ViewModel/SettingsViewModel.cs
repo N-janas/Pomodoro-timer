@@ -11,10 +11,12 @@ namespace PomodoroTimer.ViewModel
     public class SettingsViewModel : ViewModelBase
     {
         private readonly NavigationMediator _navigationMediator;
+        private readonly TimerViewModel _previousTimerState;
 
-        public SettingsViewModel(NavigationMediator navigationMediator)
+        public SettingsViewModel(NavigationMediator navigationMediator, TimerViewModel timerViewModel)
         {
             _navigationMediator = navigationMediator;
+            _previousTimerState = timerViewModel;
         }
     }
 }
