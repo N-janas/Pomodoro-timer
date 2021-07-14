@@ -15,7 +15,7 @@ namespace PomodoroTimer.ViewModel
     // Resources' alias
     using res = Properties.Resources;
 
-    class TimerViewModel : ViewModelBase
+    public class TimerViewModel : ViewModelBase
     {
         #region Fields
         private PomodoroOperator _pomodoro = new PomodoroOperator(new IntervalTimer());
@@ -24,6 +24,7 @@ namespace PomodoroTimer.ViewModel
         private string _startButtonContent;
         private bool _skipVisible;
         private TimeMode _visibleTimeMode;
+        private readonly NavigationMediator _navigationMediator;
         #endregion
 
         public TimerViewModel(NavigationMediator navigationMediator)
@@ -36,6 +37,7 @@ namespace PomodoroTimer.ViewModel
             _startButtonContent = res.Start;
             // Assign starter button visibility
             SkipVisible = false;
+            _navigationMediator = navigationMediator;
         }
 
         #region Properties
@@ -166,6 +168,11 @@ namespace PomodoroTimer.ViewModel
                 MessageBoxImage.Warning
             );
         }
+        private void GoToSettingsF(object sender)
+        {
+            _navigationMediator.CurrentViewModel = new SettingsViewModel(_navigationMediator);
+        }
+
         #endregion
 
         #region Commands
@@ -242,12 +249,11 @@ namespace PomodoroTimer.ViewModel
             {
                 if (_goToSettings == null)
                 {
-                    _goToSettings = new RelayCommand(null, arg => true);
+                    _goToSettings = new RelayCommand(GoToSettingsF, arg => true);
                 }
                 return _goToSettings;
             }
         }
-
         #endregion
     }
 }

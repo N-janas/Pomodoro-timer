@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace PomodoroTimer.View
 {
     /// <summary>
-    /// Logika interakcji dla klasy PomodoroView.xaml
+    /// Logika interakcji dla klasy TimerView.xaml
     /// </summary>
     public partial class TimerView : UserControl
     {

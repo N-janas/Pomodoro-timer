@@ -7,8 +7,6 @@
              xmlns:vm="clr-namespace:PomodoroTimer.ViewModel"
              xmlns:vmcv="clr-namespace:PomodoroTimer.ViewModel.Converters"
              mc:Ignorable="d" 
-             MinHeight="450"
-             MinWidth="800"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <!--Viewmodel and converter-->
@@ -17,7 +15,7 @@
         <vmcv:ModeWorkTimeToBoolConverter x:Key="convWorkTime"/>
         <vmcv:ModeShortBreakToBoolConverter x:Key="convShortBreak"/>
         <vmcv:ModeLongBreakToBoolConverter x:Key="convLongBreak"/>
-        <vm:TimerViewModel x:Key="timer"/>
+        <!--<vm:TimerViewModel x:Key="timer"/>-->
 
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -154,7 +152,8 @@
     </UserControl.Resources>
 
     <!--App grid-->
-    <Grid DataContext="{StaticResource timer}">
+    <!--<Grid DataContext="{StaticResource timer}">-->
+    <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="#270c42" Offset="0.0"/>

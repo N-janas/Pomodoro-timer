@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 namespace PomodoroTimer.ViewModel
 {
     using BaseClasses;
-    class SettingsViewModel : ViewModelBase
+    using ViewModel;
+    public class SettingsViewModel : ViewModelBase
     {
+        private readonly NavigationMediator _navigationMediator;
 
+        public SettingsViewModel(NavigationMediator navigationMediator)
+        {
+            _navigationMediator = navigationMediator;
+        }
     }
 }
