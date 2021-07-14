@@ -35,8 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Resources\590779.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -104,9 +103,11 @@
     <Compile Include="Model\Modes\WorkTime.cs" />
     <Compile Include="Model\PomodoroOperator.cs" />
     <Compile Include="NavigationMediator.cs" />
+    <Compile Include="NumericIncrementer.xaml.cs">
+      <DependentUpon>NumericIncrementer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseClasses\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClasses\ViewModelBase.cs" />
-    <Compile Include="ViewModel\Commands\NavigationCommand.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -114,6 +115,10 @@
     <Compile Include="View\TimerView.xaml.cs">
       <DependentUpon>TimerView.xaml</DependentUpon>
     </Compile>
+    <Page Include="NumericIncrementer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -181,6 +186,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\590779.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrowhead.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

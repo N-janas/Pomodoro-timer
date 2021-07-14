@@ -4,9 +4,66 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PomodoroTimer.View"
+             xmlns:vm="clr-namespace:PomodoroTimer.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="410*"/>
+            <ColumnDefinition Width="391*"/>
+        </Grid.ColumnDefinitions>-->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#270c42" Offset="0.0"/>
+                <GradientStop Color="#100d42" Offset="0.3"/>
+                <GradientStop Color="#0b0930" Offset="0.6"/>
+                <GradientStop Color="#1a0430" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <!--Layout-->
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+
+        <!--Labels with separators-->
+        <DockPanel Height="40" Grid.Row="0" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,0,5,0">
+            <Label DockPanel.Dock="Left" Content="Timers" FontWeight="Bold" Foreground="White"
+                   VerticalAlignment="Center" FontFamily="Roboto" FontSize="16"/>
+            <Separator/>
+        </DockPanel>
+
+        <DockPanel Height="40" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,0,5,0">
+            <Label DockPanel.Dock="Left" Content="Long Breaks" FontWeight="Bold" Foreground="White"
+                   VerticalAlignment="Center" FontFamily="Roboto" FontSize="16"/>
+            <Separator/>
+        </DockPanel>
+
+        <DockPanel Height="40" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,0,5,0">
+            <Label DockPanel.Dock="Left" Content="Other" FontWeight="Bold" Foreground="White"
+                   VerticalAlignment="Center" FontFamily="Roboto" FontSize="16"/>
+            <Separator/>
+        </DockPanel>
+
+        <!--Timers section-->
+        
+        
+        
+        <!--Apply / cancel buttons-->
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="10">
+            <Button Grid.Row="3" Content="Apply" Margin="10,0,0,0">
+                
+            </Button>
+            <Button Grid.Row="3" Content="Ok" Margin="10,0,0,0">
+                
+            </Button>
+            <Button Grid.Row="3" Content="Cancel" Margin="10,0,0,0">
+                
+            </Button>
+        </StackPanel>
+
+
     </Grid>
 </UserControl>

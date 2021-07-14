@@ -73,6 +73,16 @@ namespace PomodoroTimer.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arrowhead {
+            get {
+                object obj = ResourceManager.GetObject("arrowhead", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cog_w {
             get {
                 object obj = ResourceManager.GetObject("cog_w", resourceCulture);
