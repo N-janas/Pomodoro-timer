@@ -8,10 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="410*"/>
-            <ColumnDefinition Width="391*"/>
-        </Grid.ColumnDefinitions>-->
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="#270c42" Offset="0.0"/>
@@ -20,39 +16,68 @@
                 <GradientStop Color="#1a0430" Offset="1.0"/>
             </LinearGradientBrush>
         </Grid.Background>
+        
         <!--Layout-->
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <!--Labels with separators-->
-        <DockPanel Height="40" Grid.Row="0" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,0,5,0">
-            <Label DockPanel.Dock="Left" Content="Timers" FontWeight="Bold" Foreground="White"
-                   VerticalAlignment="Center" FontFamily="Roboto" FontSize="16"/>
-            <Separator/>
-        </DockPanel>
+        <!--Timers-->
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
+            <DockPanel Height="40" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,5,0" Grid.Column="0">
+                <Label DockPanel.Dock="Left" Content="Timers" FontWeight="Bold" Foreground="White"
+                   VerticalAlignment="Center" FontFamily="Roboto" FontSize="16"/>
+                <Separator/>
+            </DockPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
+                        Grid.Column="0">
+                <Label Content="Work Time: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
+                       Foreground="White" />
+                <local:NumericIncrementer Text="25" MinRange="1" MaxRange="60"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
+                        Grid.Column="1">
+                <Label Content="Short Break: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
+                       Foreground="White"/>
+                <local:NumericIncrementer Text="25" MinRange="1" MaxRange="60"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
+                        Grid.Column="2">
+                <Label Content="Long Break: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
+                       Foreground="White"/>
+                <local:NumericIncrementer Text="25" MinRange="1" MaxRange="60"/>
+            </StackPanel>
+
+        </Grid>
+
+        <!--Other-->
+        <!--Grid TODO-->
+        
         <DockPanel Height="40" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,0,5,0">
-            <Label DockPanel.Dock="Left" Content="Long Breaks" FontWeight="Bold" Foreground="White"
-                   VerticalAlignment="Center" FontFamily="Roboto" FontSize="16"/>
-            <Separator/>
-        </DockPanel>
-
-        <DockPanel Height="40" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,0,5,0">
             <Label DockPanel.Dock="Left" Content="Other" FontWeight="Bold" Foreground="White"
                    VerticalAlignment="Center" FontFamily="Roboto" FontSize="16"/>
             <Separator/>
         </DockPanel>
 
-        <!--Timers section-->
-        
-        
-        
+
+
         <!--Apply / cancel buttons-->
-        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="10">
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" Margin="10">
             <Button Grid.Row="3" Content="Apply" Margin="10,0,0,0">
                 
             </Button>

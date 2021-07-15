@@ -103,7 +103,7 @@
     <Compile Include="Model\Modes\WorkTime.cs" />
     <Compile Include="Model\PomodoroOperator.cs" />
     <Compile Include="NavigationMediator.cs" />
-    <Compile Include="NumericIncrementer.xaml.cs">
+    <Compile Include="View\NumericIncrementer.xaml.cs">
       <DependentUpon>NumericIncrementer.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseClasses\RelayCommand.cs" />
@@ -115,7 +115,7 @@
     <Compile Include="View\TimerView.xaml.cs">
       <DependentUpon>TimerView.xaml</DependentUpon>
     </Compile>
-    <Page Include="NumericIncrementer.xaml">
+    <Page Include="View\NumericIncrementer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,7 +188,9 @@
     <None Include="Resources\590779.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\arrowhead.png" />
+    <Resource Include="Resources\arrowhead.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
