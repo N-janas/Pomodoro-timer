@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PomodoroTimer.View"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="200">
+             MinWidth="45"
+             d:DesignHeight="400" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -82,7 +83,7 @@
         </Button>
 
         <TextBox x:Name="textBox" Grid.Row="1" PreviewTextInput="TextBox_PreviewTextInput" BorderThickness="1" TextAlignment="Center"
-                 VerticalContentAlignment="Center" FontFamily="Roboto" LostFocus="textBox_LostFocus" FontSize="25"
+                 VerticalContentAlignment="Center" FontFamily="Roboto" LostFocus="textBox_LostFocus" FontSize="30"
                  PreviewKeyDown="textBox_PreviewKeyDown" DataObject.Pasting="textBox_Pasting" MaxLength="2"
                  Text="{
                     Binding Path=Text,

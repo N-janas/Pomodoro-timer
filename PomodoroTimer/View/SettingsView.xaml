@@ -42,7 +42,7 @@
                 <Separator/>
             </DockPanel>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5,0,5,0" HorizontalAlignment="Center"
                         Grid.Column="0">
                 <Label Content="Work Time: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White" />
