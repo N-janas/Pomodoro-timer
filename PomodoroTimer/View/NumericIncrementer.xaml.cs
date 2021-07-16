@@ -48,29 +48,24 @@ namespace PomodoroTimer.View
             get { return (string)GetValue(TextProperty); }
             set
             {
-                Debug.WriteLine(value);
-                if (IsInRange(value)) // IsTextAllowed(value) && 
+                if (IsInRange(value))
                 {
                     SetValue(TextProperty, value);
-
                 }
             }
         }
 
-        private static readonly Regex _regex = new Regex("^[0-9]$"); // ^([1 - 9]|[1-5] [0-9]|60)$
+        private static readonly Regex _regex = new Regex("^[0-9]{1,2}$");
 
         private bool IsTextNotAllowed(string text)
         {
-            Debug.WriteLine(text);
-            Debug.WriteLine("IsTextAllowed : " + _regex.IsMatch(text).ToString());
             return !_regex.IsMatch(text);
         }
 
         private bool IsInRange(string text)
         {
             if (int.TryParse(text, out int num))
-            { 
-                Debug.WriteLine("IS in range :" + (num <= MaxRange && num >= MinRange).ToString());
+            {
                 return num <= MaxRange && num >= MinRange;
             }
             else
@@ -91,7 +86,7 @@ namespace PomodoroTimer.View
         }
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (IsTextNotAllowed(Text) || IsTextNotAllowed(e.Text))
+            if (IsTextNotAllowed(e.Text))
             {
                 e.Handled = Block();
             }
@@ -101,17 +96,14 @@ namespace PomodoroTimer.View
             }
         }
 
-        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private void textBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Text))
+            if (int.TryParse(Text, out int num))
             {
-                Text = "1";
+                Text = num == 0 ? MinRange.ToString() : num.ToString();
             }
+            else
+                Text = MinRange.ToString();
         }
 
         private void textBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -119,6 +111,22 @@ namespace PomodoroTimer.View
             if (e.Key == Key.Space)
             {
                 e.Handled = Block();
+            }
+        }
+
+        private void textBox_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                string text = (string)e.DataObject.GetData(typeof(string));
+                if (IsTextNotAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
             }
         }
 

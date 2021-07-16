@@ -37,7 +37,7 @@
             </Grid.ColumnDefinitions>
 
             <DockPanel Height="40" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,5,0" Grid.Column="0">
-                <Label DockPanel.Dock="Left" Content="Timers" FontWeight="Bold" Foreground="White"
+                <Label DockPanel.Dock="Left" Content="Timers [1-99] mins" FontWeight="Bold" Foreground="White"
                    VerticalAlignment="Center" FontFamily="Roboto" FontSize="16"/>
                 <Separator/>
             </DockPanel>
@@ -46,21 +46,21 @@
                         Grid.Column="0">
                 <Label Content="Work Time: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White" />
-                <local:NumericIncrementer Text="25" MinRange="1" MaxRange="60"/>
+                <local:NumericIncrementer Text="25" MaxRange="99" MinRange="1"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
                         Grid.Column="1">
                 <Label Content="Short Break: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White"/>
-                <local:NumericIncrementer Text="25" MinRange="1" MaxRange="60"/>
+                <local:NumericIncrementer Text="25" MaxRange="99" MinRange="1"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
                         Grid.Column="2">
                 <Label Content="Long Break: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White"/>
-                <local:NumericIncrementer Text="25" MinRange="1" MaxRange="60"/>
+                <local:NumericIncrementer Text="25" MaxRange="99" MinRange="1"/>
             </StackPanel>
 
         </Grid>
