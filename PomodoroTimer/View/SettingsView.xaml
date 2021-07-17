@@ -66,13 +66,50 @@
         </Grid>
 
         <!--Other-->
-        <!--Grid TODO-->
-        
-        <DockPanel Height="40" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,0,5,0">
-            <Label DockPanel.Dock="Left" Content="Other" FontWeight="Bold" Foreground="White"
+        <Grid Grid.Row="1">
+            <!--<Grid.Resources>
+                <Style TargetType="{x:Type CheckBox}">
+                    <Setter Property="Margin" Value="0,10,0,0" />
+                </Style>
+            </Grid.Resources>-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Height="40" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,5,0">
+                <Label DockPanel.Dock="Left" Content="Other" FontWeight="Bold" Foreground="White"
                    VerticalAlignment="Center" FontFamily="Roboto" FontSize="16"/>
-            <Separator/>
-        </DockPanel>
+                <Separator/>
+            </DockPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="5">
+                    <Label Content="Short break count: " FontFamily="Roboto" FontSize="17" VerticalAlignment="Center"
+                       Foreground="White"/>
+                    <local:NumericIncrementer Text="3" MaxRange="10" MinRange="1"/>
+            </StackPanel>
+            <CheckBox Grid.Row="1" Grid.Column="1" Foreground="White" FontFamily="Roboto" FontSize="17"
+                      Margin="5,10,5,5" VerticalAlignment="Center">
+                Long break allowed
+            </CheckBox>
+
+
+            <StackPanel Grid.Row="1" Grid.Column="1">
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="2">
+
+            </StackPanel>
+        </Grid>
+        
+
 
 
 

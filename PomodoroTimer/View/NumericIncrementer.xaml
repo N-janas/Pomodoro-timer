@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PomodoroTimer.View"
              mc:Ignorable="d" 
              MinWidth="45"
-             d:DesignHeight="400" d:DesignWidth="300">
+             d:DesignHeight="120" d:DesignWidth="45">
     <UserControl.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
