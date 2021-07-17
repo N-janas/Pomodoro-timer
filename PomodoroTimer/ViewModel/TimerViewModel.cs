@@ -14,6 +14,7 @@ namespace PomodoroTimer.ViewModel
     using BaseClasses;
     // Resources' alias
     using res = Properties.Resources;
+    using Settings = Properties.Settings;
 
     public class TimerViewModel : ViewModelBase
     {
@@ -25,18 +26,21 @@ namespace PomodoroTimer.ViewModel
         private bool _skipVisible;
         private TimeMode _visibleTimeMode;
         private readonly NavigationMediator _navigationMediator;
+        private bool _longBreakModeVisible;
         #endregion
 
         public TimerViewModel(NavigationMediator navigationMediator)
         {
             UpdateTime();
+
+            _longBreakModeVisible = Settings.Default.LongBreaksAllowed;
             // Attach viewmodel's update as observer
             _pomodoro.IntervalPassed += UpdateTime;
             _pomodoro.ModeChanged += UpdateVisibleMode;
             // Assign starter label 
             _startButtonContent = res.Start;
             // Assign starter button visibility
-            SkipVisible = false;
+            _skipVisible = false;
             _navigationMediator = navigationMediator;
         }
 
@@ -67,6 +71,12 @@ namespace PomodoroTimer.ViewModel
             get { return _visibleTimeMode; }
             set { _visibleTimeMode = value; OnPropertyChanged(nameof(VisibleTimeMode)); }
         }
+        public bool LongBreakModeVisible
+        {
+            get => _longBreakModeVisible;
+            set { _longBreakModeVisible = value; OnPropertyChanged(nameof(LongBreakModeVisible)); }
+        }
+
         #endregion
 
         #region Methods
@@ -254,6 +264,7 @@ namespace PomodoroTimer.ViewModel
                 return _goToSettings;
             }
         }
+
         #endregion
     }
 }

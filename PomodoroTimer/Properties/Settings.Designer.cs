@@ -74,12 +74,12 @@ namespace PomodoroTimer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool LongBreaksSet {
+        public bool LongBreaksAllowed {
             get {
-                return ((bool)(this["LongBreaksSet"]));
+                return ((bool)(this["LongBreaksAllowed"]));
             }
             set {
-                this["LongBreaksSet"] = value;
+                this["LongBreaksAllowed"] = value;
             }
         }
     }

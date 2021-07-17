@@ -103,6 +103,7 @@
     <Compile Include="Model\Modes\WorkTime.cs" />
     <Compile Include="Model\PomodoroOperator.cs" />
     <Compile Include="NavigationMediator.cs" />
+    <Compile Include="ViewModel\Converters\BoolToVisibilityCollapsedConverter.cs" />
     <Compile Include="View\NumericIncrementer.xaml.cs">
       <DependentUpon>NumericIncrementer.xaml</DependentUpon>
     </Compile>

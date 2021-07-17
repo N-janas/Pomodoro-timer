@@ -31,11 +31,16 @@ namespace PomodoroTimer.Model
         #region Methods 
         private void FillBreaksOrder()
         {
-            for (int i = 0; i < ShortBreakAmount; i++)
+            if (Settings.Default.LongBreaksAllowed)
             {
-                _breaksCollection.AddItem(new ShortBreak());
+                for (int i = 0; i < ShortBreakAmount; i++)
+                {
+                    _breaksCollection.AddItem(new ShortBreak());
+                }
+                _breaksCollection.AddItem(new LongBreak());
             }
-            _breaksCollection.AddItem(new LongBreak());
+            else
+                _breaksCollection.AddItem(new ShortBreak());
         }
 
         public void CountDown(Object source, ElapsedEventArgs e)

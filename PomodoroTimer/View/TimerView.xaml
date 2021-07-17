@@ -15,6 +15,7 @@
         <vmcv:ModeWorkTimeToBoolConverter x:Key="convWorkTime"/>
         <vmcv:ModeShortBreakToBoolConverter x:Key="convShortBreak"/>
         <vmcv:ModeLongBreakToBoolConverter x:Key="convLongBreak"/>
+        <vmcv:BoolToVisibilityCollapsedConverter x:Key="convVisCollapsed"/>
         <!--<vm:TimerViewModel x:Key="timer"/>-->
 
         <Style x:Key="FocusVisual">
@@ -191,7 +192,8 @@
                                  Command="{Binding TurnOnShortBreak}"/>
                     <RadioButton x:Name="LongBreakBtn" GroupName="Modes" Style="{DynamicResource ToggleButtonStyle1}"
                                  Content="Long break" Foreground="White" FontFamily="Roboto" FontSize="28"
-                                 Margin="20" Background="Transparent" BorderBrush="Transparent"
+                                 Margin="20" Background="Transparent" BorderBrush="Transparent" 
+                                 Visibility="{Binding LongBreakModeVisible, Converter={StaticResource convVisCollapsed}}"
                                  IsChecked="{Binding VisibleTimeMode, Converter={StaticResource convLongBreak}, Mode=OneWay}"
                                  Command="{Binding TurnOnLongBreak}"/>
                 </StackPanel>
