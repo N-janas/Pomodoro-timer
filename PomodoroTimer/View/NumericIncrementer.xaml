@@ -85,6 +85,7 @@
         <TextBox x:Name="textBox" Grid.Row="1" PreviewTextInput="TextBox_PreviewTextInput" BorderThickness="1" TextAlignment="Center"
                  VerticalContentAlignment="Center" FontFamily="Roboto" LostFocus="textBox_LostFocus" FontSize="30"
                  PreviewKeyDown="textBox_PreviewKeyDown" DataObject.Pasting="textBox_Pasting" MaxLength="2"
+                 TextChanged="textBox_TextChanged"
                  Text="{
                     Binding Path=Text,
                     Mode=TwoWay,

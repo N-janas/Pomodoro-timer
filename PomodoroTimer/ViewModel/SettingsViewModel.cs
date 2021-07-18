@@ -8,6 +8,7 @@ namespace PomodoroTimer.ViewModel
 {
     using BaseClasses;
     using ViewModel;
+    using Settings = Properties.Settings;
     public class SettingsViewModel : ViewModelBase
     {
         private readonly NavigationMediator _navigationMediator;
@@ -30,6 +31,12 @@ namespace PomodoroTimer.ViewModel
         {
             _navigationMediator = navigationMediator;
             _previousTimerState = timerViewModel;
+
+            _workTime = Settings.Default.WorkTimeMins;
+            _shortBreakTime = Settings.Default.ShortBreakMins;
+            _longBreakTime = Settings.Default.LongBreakMins;
+            _isLongBreakAllowed = Settings.Default.LongBreaksAllowed;
+            _shortBreakCount = Settings.Default.ShortBreaksCount;
         }
 
 

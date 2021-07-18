@@ -130,7 +130,24 @@ namespace PomodoroTimer.View
             }
         }
 
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (int.TryParse(Text, out int num))
+            {
+                if (num > MaxRange)
+                {
+                    int careteIdx = ((TextBox)sender).CaretIndex;
+                    Text = MaxRange.ToString();
+                    PlaceCareteAtSamePlace((TextBox)sender, careteIdx);
+                }
+            }
+        }
+
         private bool Block() => true;
         private bool Pass() => false;
+        private void PlaceCareteAtSamePlace(TextBox txtBox, int idx)
+        {
+            txtBox.CaretIndex = idx;
+        }
     }
 }

@@ -7,6 +7,35 @@
              xmlns:vm="clr-namespace:PomodoroTimer.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="SettingsButtonStyle" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" CornerRadius="8" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#59ffffff"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#59ffffff"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#84ffffff"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#84ffffff"/>
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -16,7 +45,7 @@
                 <GradientStop Color="#1a0430" Offset="1.0"/>
             </LinearGradientBrush>
         </Grid.Background>
-        
+
         <!--Layout-->
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -46,32 +75,27 @@
                         Grid.Column="0">
                 <Label Content="Work Time: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White" />
-                <local:NumericIncrementer Text="25" MaxRange="99" MinRange="1"/>
+                <local:NumericIncrementer Text="{Binding WorkTime}" MaxRange="99" MinRange="1"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
                         Grid.Column="1">
                 <Label Content="Short Break: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White"/>
-                <local:NumericIncrementer Text="25" MaxRange="99" MinRange="1"/>
+                <local:NumericIncrementer Text="{Binding ShortBreakTime}" MaxRange="99" MinRange="1"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
                         Grid.Column="2">
                 <Label Content="Long Break: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White"/>
-                <local:NumericIncrementer Text="25" MaxRange="99" MinRange="1"/>
+                <local:NumericIncrementer Text="{Binding LongBreakTime}" MaxRange="99" MinRange="1"/>
             </StackPanel>
 
         </Grid>
 
         <!--Other-->
         <Grid Grid.Row="1">
-            <!--<Grid.Resources>
-                <Style TargetType="{x:Type CheckBox}">
-                    <Setter Property="Margin" Value="0,10,0,0" />
-                </Style>
-            </Grid.Resources>-->
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*"/>
                 <RowDefinition/>
@@ -90,12 +114,12 @@
             </DockPanel>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="5">
-                    <Label Content="Short break count: " FontFamily="Roboto" FontSize="17" VerticalAlignment="Center"
+                <Label Content="Short break count: " FontFamily="Roboto" FontSize="17" VerticalAlignment="Center"
                        Foreground="White"/>
-                    <local:NumericIncrementer Text="3" MaxRange="10" MinRange="1"/>
+                <local:NumericIncrementer Text="{Binding ShortBreakCount}" MaxRange="10" MinRange="1"/>
             </StackPanel>
             <CheckBox Grid.Row="1" Grid.Column="1" Foreground="White" FontFamily="Roboto" FontSize="17"
-                      Margin="5,10,5,5" VerticalAlignment="Center">
+                      Margin="5,10,5,5" VerticalAlignment="Center" IsChecked="{Binding IsLongBreakAllowed}">
                 Long break allowed
             </CheckBox>
 
@@ -108,24 +132,26 @@
 
             </StackPanel>
         </Grid>
-        
-
-
-
 
         <!--Apply / cancel buttons-->
-        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" Margin="10">
-            <Button Grid.Row="3" Content="Apply" Margin="10,0,0,0">
-                
-            </Button>
-            <Button Grid.Row="3" Content="Ok" Margin="10,0,0,0">
-                
-            </Button>
-            <Button Grid.Row="3" Content="Cancel" Margin="10,0,0,0">
-                
-            </Button>
-        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="7"/>
+                </Style>
+            </Grid.Resources>
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition />
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Content="Save" Template="{DynamicResource SettingsButtonStyle}"
+                    FontFamily="Roboto" FontSize="20" FontWeight="Bold" Foreground="White" Background="Transparent"/>
+            <Button Grid.Column="2" Content="Cancel" Template="{DynamicResource SettingsButtonStyle}"
+                    FontFamily="Roboto" FontSize="20" FontWeight="Bold" Foreground="White" Background="Transparent"/>
+
+        </Grid>
 
     </Grid>
 </UserControl>
