@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace PomodoroTimer.ViewModel
 {
     using BaseClasses;
+    using System.Windows.Input;
     using ViewModel;
     using Settings = Properties.Settings;
     public class SettingsViewModel : ViewModelBase
@@ -39,6 +41,54 @@ namespace PomodoroTimer.ViewModel
             _shortBreakCount = Settings.Default.ShortBreaksCount;
         }
 
+        private void SaveSettings(object sender)
+        {
+            Settings.Default.WorkTimeMins = _workTime;
+            Settings.Default.ShortBreakMins = _shortBreakTime;
+            Settings.Default.LongBreakMins = _longBreakTime;
+            Settings.Default.LongBreaksAllowed = _isLongBreakAllowed;
+            Settings.Default.ShortBreaksCount = _shortBreakCount;
+
+            LeaveSettings(new TimerViewModel(_navigationMediator));
+        }
+
+        private void CancelSaving(object sender)
+        {
+            LeaveSettings(_previousTimerState);
+        }
+
+        private void LeaveSettings(ViewModelBase viewModel)
+        {
+            _navigationMediator.CurrentViewModel = viewModel;
+        }
+
+        private ICommand _save = null;
+
+        public ICommand Save
+        {
+            get
+            {
+                if (_save == null)
+                {
+                    _save = new RelayCommand(SaveSettings, arg => true);
+                }
+                return _save;
+            }
+        }
+
+        private ICommand _cancel = null;
+
+        public ICommand Cancel
+        {
+            get
+            {
+                if (_cancel == null)
+                {
+                    _cancel = new RelayCommand(CancelSaving, arg => true);
+                }
+                return _cancel;
+            }
+        }
 
     }
 }

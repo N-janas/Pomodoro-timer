@@ -75,21 +75,21 @@
                         Grid.Column="0">
                 <Label Content="Work Time: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White" />
-                <local:NumericIncrementer Text="{Binding WorkTime}" MaxRange="99" MinRange="1"/>
+                <local:NumericIncrementer Text="{Binding WorkTime, Mode=TwoWay}" MaxRange="99" MinRange="1"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
                         Grid.Column="1">
                 <Label Content="Short Break: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White"/>
-                <local:NumericIncrementer Text="{Binding ShortBreakTime}" MaxRange="99" MinRange="1"/>
+                <local:NumericIncrementer Text="{Binding ShortBreakTime, Mode=TwoWay}" MaxRange="99" MinRange="1"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
                         Grid.Column="2">
                 <Label Content="Long Break: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White"/>
-                <local:NumericIncrementer Text="{Binding LongBreakTime}" MaxRange="99" MinRange="1"/>
+                <local:NumericIncrementer Text="{Binding LongBreakTime, Mode=TwoWay}" MaxRange="99" MinRange="1"/>
             </StackPanel>
 
         </Grid>
@@ -116,10 +116,10 @@
             <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="5">
                 <Label Content="Short break count: " FontFamily="Roboto" FontSize="17" VerticalAlignment="Center"
                        Foreground="White"/>
-                <local:NumericIncrementer Text="{Binding ShortBreakCount}" MaxRange="10" MinRange="1"/>
+                <local:NumericIncrementer Text="{Binding ShortBreakCount, Mode=TwoWay}" MaxRange="10" MinRange="1"/>
             </StackPanel>
             <CheckBox Grid.Row="1" Grid.Column="1" Foreground="White" FontFamily="Roboto" FontSize="17"
-                      Margin="5,10,5,5" VerticalAlignment="Center" IsChecked="{Binding IsLongBreakAllowed}">
+                      Margin="5,10,5,5" VerticalAlignment="Center" IsChecked="{Binding IsLongBreakAllowed, Mode=TwoWay}">
                 Long break allowed
             </CheckBox>
 
@@ -146,9 +146,9 @@
                 <ColumnDefinition />
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Content="Save" Template="{DynamicResource SettingsButtonStyle}"
+            <Button Grid.Column="1" Content="Save" Template="{DynamicResource SettingsButtonStyle}" Command="{Binding Save}"
                     FontFamily="Roboto" FontSize="20" FontWeight="Bold" Foreground="White" Background="Transparent"/>
-            <Button Grid.Column="2" Content="Cancel" Template="{DynamicResource SettingsButtonStyle}"
+            <Button Grid.Column="2" Content="Cancel" Template="{DynamicResource SettingsButtonStyle}" Command="{Binding Cancel}"
                     FontFamily="Roboto" FontSize="20" FontWeight="Bold" Foreground="White" Background="Transparent"/>
 
         </Grid>

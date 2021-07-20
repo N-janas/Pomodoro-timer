@@ -140,7 +140,12 @@
                                 <Setter Property="Background" TargetName="border" Value="#81ffffff"/>
                                 <Setter Property="BorderBrush" TargetName="border" Value="#81ffffff"/>
                             </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
+                            <!--<Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="#FF11A42C"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF11A42C"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#ffffffff"/>
+                            </Trigger>-->
+                            <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="Background" TargetName="border" Value="#FF11A42C"/>
                                 <Setter Property="BorderBrush" TargetName="border" Value="#FF11A42C"/>
                                 <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#ffffffff"/>

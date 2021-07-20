@@ -18,7 +18,6 @@ namespace PomodoroTimer.ViewModel.BaseClasses
             {
                 foreach (var prop in namesOfProperties)
                 {
-                    Debug.WriteLine(prop);
                     PropertyChanged(this, new PropertyChangedEventArgs(prop));
                 }
             }

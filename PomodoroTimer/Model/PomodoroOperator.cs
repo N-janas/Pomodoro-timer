@@ -15,6 +15,9 @@ namespace PomodoroTimer.Model
         private BreaksCollection _breaksCollection = new BreaksCollection();
         public event Action IntervalPassed;
         public event Action ModeChanged;
+        public event Action TimerStarted;
+        public event Action TimerStopped;
+
         public int ShortBreakAmount { get; private set; } = Settings.Default.ShortBreaksCount;
         public TimeMode CurrentMode { get; private set; }
         public int CurrentTime { get; private set; }
@@ -43,10 +46,24 @@ namespace PomodoroTimer.Model
                 _breaksCollection.AddItem(new ShortBreak());
         }
 
+        public void StartTimer()
+        {
+            Timer.Start();
+            TimerStarted?.Invoke();
+        }
+
+        public void StopTimer()
+        {
+            Timer.Stop();
+            TimerStopped?.Invoke();
+        }
+
         public void CountDown(Object source, ElapsedEventArgs e)
         {
             CurrentTime -= 1;
+
             IntervalPassed?.Invoke();
+
             if (CurrentTime <= 0)
                 EndMode();
         }
@@ -58,8 +75,7 @@ namespace PomodoroTimer.Model
 
         private void EndMode()
         {
-            Timer.Stop();
-            CurrentTime = 0;
+            StopTimer();
             NextMode();
         }
 
@@ -72,8 +88,8 @@ namespace PomodoroTimer.Model
         {
             CurrentMode = timeMode;
             CurrentTime = CurrentMode.Duration;
+
             ModeChanged?.Invoke();
-            IntervalPassed?.Invoke();
         }
         #endregion
     }
