@@ -8,9 +8,15 @@ using System.Threading.Tasks;
 namespace PomodoroTimer.Model
 {
     using Modes;
-    public class BreaksCollection : IteratorAggregate
+    public class BreaksCollection
     {
         private List<TimeMode> _breaksOrder = new List<TimeMode>();
+        public int Position { get; set; } = -1;
+
+        public object Current()
+        {
+            return _breaksOrder[Position];
+        }
 
         public List<TimeMode> GetItems()
         {
@@ -22,9 +28,29 @@ namespace PomodoroTimer.Model
             _breaksOrder.Add(breakType);
         }
 
-        public override IEnumerator GetEnumerator()
+        public bool MoveNext()
         {
-            return new LoopedIterator(this);
+            int updatedPosition = Position + 1;
+
+            // Loop over
+            if (updatedPosition >= _breaksOrder.Count)
+            {
+                Reset();
+                return true;
+            }
+
+            if (updatedPosition >= 0)
+            {
+                Position = updatedPosition;
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public void Reset()
+        {
+            Position = 0;
         }
     }
 }

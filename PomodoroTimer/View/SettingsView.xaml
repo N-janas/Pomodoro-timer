@@ -8,6 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+
         <ControlTemplate x:Key="SettingsButtonStyle" TargetType="{x:Type ButtonBase}">
             <Border x:Name="border" CornerRadius="8" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -75,21 +76,24 @@
                         Grid.Column="0">
                 <Label Content="Work Time: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White" />
-                <local:NumericIncrementer Text="{Binding WorkTime, Mode=TwoWay}" MaxRange="99" MinRange="1"/>
+                <local:NumericIncrementer Text="{Binding WorkTime, Mode=TwoWay}"
+                                          MaxRange="99" MinRange="1"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
                         Grid.Column="1">
                 <Label Content="Short Break: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White"/>
-                <local:NumericIncrementer Text="{Binding ShortBreakTime, Mode=TwoWay}" MaxRange="99" MinRange="1"/>
+                <local:NumericIncrementer Text="{Binding ShortBreakTime, Mode=TwoWay}" 
+                                          MaxRange="99" MinRange="1"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,10,0" HorizontalAlignment="Center"
                         Grid.Column="2">
                 <Label Content="Long Break: " FontFamily="Roboto" FontSize="18" VerticalAlignment="Center"
                        Foreground="White"/>
-                <local:NumericIncrementer Text="{Binding LongBreakTime, Mode=TwoWay}" MaxRange="99" MinRange="1"/>
+                <local:NumericIncrementer Text="{Binding LongBreakTime, Mode=TwoWay}"
+                                          MaxRange="99" MinRange="1"/>
             </StackPanel>
 
         </Grid>

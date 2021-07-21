@@ -27,9 +27,6 @@ namespace PomodoroTimer.ViewModel
         private TimeMode _visibleTimeMode;
         private readonly NavigationMediator _navigationMediator;
         private bool _longBreakModeVisible;
-        private bool _isWorkTimeOn = true;
-        private bool _isShortBreakOn = false;
-        private bool _isLongBreakOn = false;
         #endregion
 
         public TimerViewModel(NavigationMediator navigationMediator)
@@ -37,19 +34,20 @@ namespace PomodoroTimer.ViewModel
             UpdateTime();
             UpdateVisibleMode();
 
-            _longBreakModeVisible = Settings.Default.LongBreaksAllowed;
             // Attach viewmodel's update as observer
             _pomodoro.IntervalPassed += UpdateTime;
-
             _pomodoro.ModeChanged += OnModeChanged;
-
             _pomodoro.TimerStarted += OnTimerStarted;
             _pomodoro.TimerStopped += OnTimerStopped;
+
             // Assign starter label 
             _startButtonContent = res.Start;
+
             // Assign starter button visibility
             _skipVisible = false;
+
             _navigationMediator = navigationMediator;
+            _longBreakModeVisible = Settings.Default.LongBreaksAllowed;
         }
 
         #region Properties
@@ -84,10 +82,6 @@ namespace PomodoroTimer.ViewModel
             get => _longBreakModeVisible;
             set { _longBreakModeVisible = value; OnPropertyChanged(nameof(LongBreakModeVisible)); }
         }
-        public bool IsWorkTimeOn { get => _isWorkTimeOn; set { _isWorkTimeOn = value; OnPropertyChanged(nameof(IsWorkTimeOn)); } }
-        public bool IsShortBreakOn { get => _isShortBreakOn; set { _isShortBreakOn = value; OnPropertyChanged(nameof(IsShortBreakOn)); } }
-        public bool IsLongBreakOn { get => _isLongBreakOn; set { _isLongBreakOn = value; OnPropertyChanged(nameof(IsLongBreakOn)); } }
-
         #endregion
 
         #region Methods
@@ -162,6 +156,9 @@ namespace PomodoroTimer.ViewModel
 
         private void TrySetModeOn(TimeMode mode)
         {
+            // After trying to switch modes reapply current (visual) mode
+            // to ensure that same mode is set (visually) when change prompt will show
+            UpdateVisibleMode();
             if (!VisibleTimeMode.GetType().Equals(mode.GetType()))
             {
                 if (_pomodoro.Timer.IsRunning())
@@ -292,9 +289,6 @@ namespace PomodoroTimer.ViewModel
                 return _goToSettings;
             }
         }
-
-
-
         #endregion
     }
 }

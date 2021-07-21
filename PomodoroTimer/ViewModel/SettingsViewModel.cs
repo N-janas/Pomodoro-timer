@@ -16,17 +16,19 @@ namespace PomodoroTimer.ViewModel
         private readonly NavigationMediator _navigationMediator;
         private readonly TimerViewModel _previousTimerState;
 
-        private int _workTime;
-        private int _shortBreakTime;
-        private int _longBreakTime;
+        private string _workTime;
+        private string _shortBreakTime;
+        private string _longBreakTime;
         private bool _isLongBreakAllowed;
-        private int _shortBreakCount;
+        private string _shortBreakCount;
 
-        public int WorkTime { get => _workTime; set { _workTime = value; OnPropertyChanged(nameof(WorkTime)); } }
-        public int ShortBreakTime { get => _shortBreakTime; set { _shortBreakTime = value; OnPropertyChanged(nameof(ShortBreakTime)); } }
-        public int LongBreakTime { get => _longBreakTime; set { _longBreakTime = value; OnPropertyChanged(nameof(LongBreakTime)); } }
+
+
+        public string WorkTime { get => _workTime; set { _workTime = value; OnPropertyChanged(nameof(WorkTime)); } }
+        public string ShortBreakTime { get => _shortBreakTime; set { _shortBreakTime = value; OnPropertyChanged(nameof(ShortBreakTime)); } }
+        public string LongBreakTime { get => _longBreakTime; set { _longBreakTime = value; OnPropertyChanged(nameof(LongBreakTime)); } }
         public bool IsLongBreakAllowed { get => _isLongBreakAllowed; set { _isLongBreakAllowed = value; OnPropertyChanged(nameof(IsLongBreakAllowed)); } }
-        public int ShortBreakCount { get => _shortBreakCount; set { _shortBreakCount = value; OnPropertyChanged(nameof(ShortBreakCount)); } }
+        public string ShortBreakCount { get => _shortBreakCount; set { _shortBreakCount = value; OnPropertyChanged(nameof(ShortBreakCount)); } }
 
 
         public SettingsViewModel(NavigationMediator navigationMediator, TimerViewModel timerViewModel)
@@ -34,20 +36,38 @@ namespace PomodoroTimer.ViewModel
             _navigationMediator = navigationMediator;
             _previousTimerState = timerViewModel;
 
-            _workTime = Settings.Default.WorkTimeMins;
-            _shortBreakTime = Settings.Default.ShortBreakMins;
-            _longBreakTime = Settings.Default.LongBreakMins;
+            _workTime = Settings.Default.WorkTimeMins.ToString();
+            _shortBreakTime = Settings.Default.ShortBreakMins.ToString();
+            _longBreakTime = Settings.Default.LongBreakMins.ToString();
             _isLongBreakAllowed = Settings.Default.LongBreaksAllowed;
-            _shortBreakCount = Settings.Default.ShortBreaksCount;
+            _shortBreakCount = Settings.Default.ShortBreaksCount.ToString();
         }
 
         private void SaveSettings(object sender)
         {
-            Settings.Default.WorkTimeMins = _workTime;
-            Settings.Default.ShortBreakMins = _shortBreakTime;
-            Settings.Default.LongBreakMins = _longBreakTime;
+            if (int.TryParse(_workTime, out int number))
+            {
+                Settings.Default.WorkTimeMins = number;
+            }
+
+            if (int.TryParse(_shortBreakTime, out number))
+            {
+                Settings.Default.ShortBreakMins = number;
+            }
+
+            if (int.TryParse(_longBreakTime, out number))
+            {
+                Settings.Default.LongBreakMins = number;
+            }
+
+            if (int.TryParse(_shortBreakCount, out number))
+            {
+                Settings.Default.ShortBreaksCount = number;
+            }
+
             Settings.Default.LongBreaksAllowed = _isLongBreakAllowed;
-            Settings.Default.ShortBreaksCount = _shortBreakCount;
+
+            Settings.Default.Save();
 
             LeaveSettings(new TimerViewModel(_navigationMediator));
         }

@@ -91,11 +91,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Iterator.cs" />
-    <Compile Include="Model\IteratorAggregate.cs" />
     <Compile Include="Model\ITimer.cs" />
     <Compile Include="Model\IntervalTimer.cs" />
-    <Compile Include="Model\LoopedIterator.cs" />
     <Compile Include="Model\BreaksCollection.cs" />
     <Compile Include="Model\Modes\LongBreak.cs" />
     <Compile Include="Model\Modes\ShortBreak.cs" />

@@ -15,8 +15,8 @@ namespace PomodoroTimer.Model.Modes
         }
         public override TimeMode NextMode(BreaksCollection breaksCollection)
         {
-            breaksCollection.GetEnumerator().MoveNext();
-            return breaksCollection.GetEnumerator().Current as TimeMode;
+            breaksCollection.MoveNext();
+            return breaksCollection.Current() as TimeMode;
         }
     }
 }

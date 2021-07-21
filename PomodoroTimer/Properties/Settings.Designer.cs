@@ -25,7 +25,7 @@ namespace PomodoroTimer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
         public int WorkTimeMins {
             get {
                 return ((int)(this["WorkTimeMins"]));
@@ -37,7 +37,7 @@ namespace PomodoroTimer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public int ShortBreakMins {
             get {
                 return ((int)(this["ShortBreakMins"]));
