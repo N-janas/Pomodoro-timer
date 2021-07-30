@@ -67,7 +67,10 @@ namespace PomodoroTimer.Model
 
             if (CurrentTime <= 0)
             {
-                ShowTimesUpNotification(CurrentMode.ToString());
+                if (Settings.Default.SendNotifications)
+                {
+                    ShowTimesUpNotification(CurrentMode.ToString());
+                }
                 EndMode();
             }
         }
