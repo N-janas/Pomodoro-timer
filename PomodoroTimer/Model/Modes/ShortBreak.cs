@@ -18,5 +18,10 @@ namespace PomodoroTimer.Model.Modes
         {
             return new WorkTime();
         }
+
+        public override string ToString()
+        {
+            return "Short Break";
+        }
     }
 }

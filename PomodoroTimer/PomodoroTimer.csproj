@@ -166,6 +166,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
+      <Version>7.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Typemock.Isolator">
       <Version>9.0.0</Version>
     </PackageReference>

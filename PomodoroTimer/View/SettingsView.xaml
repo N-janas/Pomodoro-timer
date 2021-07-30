@@ -122,9 +122,13 @@
                        Foreground="White"/>
                 <local:NumericIncrementer Text="{Binding ShortBreakCount, Mode=TwoWay}" MaxRange="10" MinRange="1"/>
             </StackPanel>
-            <CheckBox Grid.Row="1" Grid.Column="1" Foreground="White" FontFamily="Roboto" FontSize="17"
+            <CheckBox Grid.Row="1" Grid.Column="1" Foreground="White" FontFamily="Roboto" FontSize="17" HorizontalAlignment="Center"
                       Margin="5,10,5,5" VerticalAlignment="Center" IsChecked="{Binding IsLongBreakAllowed, Mode=TwoWay}">
                 Long break allowed
+            </CheckBox>
+            <CheckBox Grid.Row="1" Grid.Column="2" Foreground="White" FontFamily="Roboto" FontSize="17" HorizontalAlignment="Center"
+                      Margin="5,10,5,5" VerticalAlignment="Center" IsChecked="{Binding SendNotifications, Mode=TwoWay}">
+                Send time's up notifications
             </CheckBox>
 
 

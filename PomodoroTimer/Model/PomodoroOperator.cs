@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Diagnostics;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace PomodoroTimer.Model
 {
@@ -65,7 +66,10 @@ namespace PomodoroTimer.Model
             IntervalPassed?.Invoke();
 
             if (CurrentTime <= 0)
+            {
+                ShowTimesUpNotification(CurrentMode.ToString());
                 EndMode();
+            }
         }
 
         public void Skip()
@@ -90,6 +94,15 @@ namespace PomodoroTimer.Model
             CurrentTime = CurrentMode.Duration;
 
             ModeChanged?.Invoke();
+        }
+
+        private void ShowTimesUpNotification(string mode)
+        {
+            new ToastContentBuilder()
+                .AddArgument("action", "viewTimeIsUp")
+                .AddText("Time's Up")
+                .AddText($"Your {mode} is over")
+                .Show();
         }
         #endregion
     }

@@ -9,7 +9,7 @@ namespace PomodoroTimer.Model.Modes
     public abstract class TimeMode
     {
         public int Duration { get; set; }
-        protected static int GetSeconds(int mins) => mins * 60;
+        protected static int GetSeconds(int mins) => 10;
         public abstract TimeMode NextMode(BreaksCollection breaksCollection);
 
     }

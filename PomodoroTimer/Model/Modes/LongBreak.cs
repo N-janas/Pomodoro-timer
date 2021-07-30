@@ -18,5 +18,9 @@ namespace PomodoroTimer.Model.Modes
         {
             return new WorkTime();
         }
+        public override string ToString()
+        {
+            return "Long Break";
+        }
     }
 }

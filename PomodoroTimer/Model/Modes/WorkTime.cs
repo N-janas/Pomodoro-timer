@@ -18,5 +18,10 @@ namespace PomodoroTimer.Model.Modes
             breaksCollection.MoveNext();
             return breaksCollection.Current() as TimeMode;
         }
+
+        public override string ToString()
+        {
+            return "Work Time";
+        }
     }
 }

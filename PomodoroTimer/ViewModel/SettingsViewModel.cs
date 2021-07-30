@@ -21,14 +21,14 @@ namespace PomodoroTimer.ViewModel
         private string _longBreakTime;
         private bool _isLongBreakAllowed;
         private string _shortBreakCount;
-
-
+        private bool _sendNotifications;
 
         public string WorkTime { get => _workTime; set { _workTime = value; OnPropertyChanged(nameof(WorkTime)); } }
         public string ShortBreakTime { get => _shortBreakTime; set { _shortBreakTime = value; OnPropertyChanged(nameof(ShortBreakTime)); } }
         public string LongBreakTime { get => _longBreakTime; set { _longBreakTime = value; OnPropertyChanged(nameof(LongBreakTime)); } }
         public bool IsLongBreakAllowed { get => _isLongBreakAllowed; set { _isLongBreakAllowed = value; OnPropertyChanged(nameof(IsLongBreakAllowed)); } }
         public string ShortBreakCount { get => _shortBreakCount; set { _shortBreakCount = value; OnPropertyChanged(nameof(ShortBreakCount)); } }
+        public bool SendNotifications { get => _sendNotifications; set { _sendNotifications = value; OnPropertyChanged(nameof(SendNotifications)); } }
 
 
         public SettingsViewModel(NavigationMediator navigationMediator, TimerViewModel timerViewModel)
@@ -41,6 +41,7 @@ namespace PomodoroTimer.ViewModel
             _longBreakTime = Settings.Default.LongBreakMins.ToString();
             _isLongBreakAllowed = Settings.Default.LongBreaksAllowed;
             _shortBreakCount = Settings.Default.ShortBreaksCount.ToString();
+            _sendNotifications = Settings.Default.SendNotifications;
         }
 
         private void SaveSettings(object sender)
@@ -66,6 +67,7 @@ namespace PomodoroTimer.ViewModel
             }
 
             Settings.Default.LongBreaksAllowed = _isLongBreakAllowed;
+            Settings.Default.SendNotifications = _sendNotifications;
 
             Settings.Default.Save();
 
