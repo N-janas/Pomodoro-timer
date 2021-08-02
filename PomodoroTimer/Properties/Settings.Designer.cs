@@ -94,5 +94,17 @@ namespace PomodoroTimer.Properties {
                 this["SendNotifications"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MinimizeOnClosing {
+            get {
+                return ((bool)(this["MinimizeOnClosing"]));
+            }
+            set {
+                this["MinimizeOnClosing"] = value;
+            }
+        }
     }
 }

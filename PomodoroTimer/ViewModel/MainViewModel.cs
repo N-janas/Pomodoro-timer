@@ -9,6 +9,7 @@ namespace PomodoroTimer.ViewModel
 {
     using ViewModel;
     using ViewModel.BaseClasses;
+    using Settings = Properties.Settings;
     public class MainViewModel : ViewModelBase
     {
         private readonly NavigationMediator _navigationMediator;
@@ -19,6 +20,11 @@ namespace PomodoroTimer.ViewModel
             _navigationMediator = navigationMediator;
 
             _navigationMediator.CurrentViewModelChanged += OnCurrentViewModelChanged;
+
+            if (Settings.Default.MinimizeOnClosing)
+            {
+
+            }
         }
 
         private void OnCurrentViewModelChanged()
