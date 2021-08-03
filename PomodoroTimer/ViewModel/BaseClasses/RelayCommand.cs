@@ -18,7 +18,7 @@ namespace PomodoroTimer.ViewModel.BaseClasses
                 throw new ArgumentNullException(nameof(execute));
             else
                 _execute = execute;
-            _canExecute = canExecute;      
+            _canExecute = canExecute;
         }
 
         public event EventHandler CanExecuteChanged
@@ -41,6 +41,43 @@ namespace PomodoroTimer.ViewModel.BaseClasses
         public void Execute(object parameter)
         {
             _execute(parameter);
+        }
+    }
+
+    class RelayCommand<T> : ICommand
+    {
+        readonly Action<T> _execute;
+        readonly Predicate<T> _canExecute;
+
+        public RelayCommand(Action<T> execute, Predicate<T> canExecute)
+        {
+            if (execute == null)
+                throw new ArgumentNullException(nameof(execute));
+            else
+                _execute = execute;
+            _canExecute = canExecute;
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                if (_canExecute != null) CommandManager.RequerySuggested += value;
+            }
+            remove
+            {
+                if (_canExecute != null) CommandManager.RequerySuggested += value;
+            }
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null ? true : _canExecute((T)parameter);
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute((T)parameter);
         }
     }
 }

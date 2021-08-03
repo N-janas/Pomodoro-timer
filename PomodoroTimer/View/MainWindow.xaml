@@ -7,13 +7,17 @@
         xmlns:vm="clr-namespace:PomodoroTimer.ViewModel"
         xmlns:vmcv="clr-namespace:PomodoroTimer.ViewModel.Converters"
         xmlns:views="clr-namespace:PomodoroTimer.View"
+        xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         WindowStyle="SingleBorderWindow"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
+        WindowState="{Binding WindowState}"
+        ShowInTaskbar="{Binding ShowInTaskbar}"
         MinHeight="450"
         MinWidth="800"
         Title="Pomodoro Timer" Height="450" Width="800">
+
     <ContentControl Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type vm:TimerViewModel}">
@@ -24,4 +28,11 @@
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
+
+    <bh:Interaction.Triggers>
+        <bh:EventTrigger EventName="Closing">
+            <bh:InvokeCommandAction Command="{Binding ClosingWindow}" PassEventArgsToCommand="True"/>
+        </bh:EventTrigger>
+    </bh:Interaction.Triggers>
+
 </Window>

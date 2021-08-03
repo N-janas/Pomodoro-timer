@@ -15,11 +15,8 @@ namespace PomodoroTimer
     {
         private readonly NotifyIcon _notifyIcon;
 
-        //private static readonly RoutedEvent OpenSelectedEvent = EventManager.RegisterRoutedEvent("OpenSelected",
-        //    RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(NotifyIconWrapper));
-
-        //private static readonly RoutedEvent ExitSelectedEvent = EventManager.RegisterRoutedEvent("ExitSelected",
-        //    RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(NotifyIconWrapper));
+        public event Action Opening;
+        public event Action Exiting;
 
         public NotifyIconWrapper()
         {
@@ -30,24 +27,35 @@ namespace PomodoroTimer
             {
                 Icon = Properties.Resources._590779,
                 Visible = true,
+                ContextMenuStrip = CreateContextMenu()
             };
-            _notifyIcon.ContextMenuStrip.Items.Add("Open", null, OpenItemOnClick);
-            _notifyIcon.ContextMenuStrip.Items.Add("Exit", null, ExitItemOnClick);
-        }
-
-        private void ExitItemOnClick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void OpenItemOnClick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Opening?.Invoke();
+        }
+
+        private void ExitItemOnClick(object sender, EventArgs e)
+        {
+            Exiting?.Invoke();
         }
 
         public void Dispose()
         {
             _notifyIcon.Dispose();
+        }
+
+        private ContextMenuStrip CreateContextMenu()
+        {
+            var openItem = new ToolStripMenuItem("Open");
+            openItem.Click += OpenItemOnClick;
+
+            var exitItem = new ToolStripMenuItem("Exit");
+            exitItem.Click += ExitItemOnClick;
+
+            var contextMenu = new ContextMenuStrip { Items = { openItem, exitItem } };
+            return contextMenu;
         }
     }
 }

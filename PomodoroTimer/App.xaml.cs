@@ -19,11 +19,12 @@ namespace PomodoroTimer
             NavigationMediator navigationMediator = new NavigationMediator();
 
             navigationMediator.CurrentViewModel = new TimerViewModel(navigationMediator);
-            
+
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(navigationMediator)
             };
+
             MainWindow.Show();
             base.OnStartup(e);
         }

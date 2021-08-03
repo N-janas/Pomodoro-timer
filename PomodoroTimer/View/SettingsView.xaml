@@ -139,8 +139,8 @@
 
             <CheckBox Grid.Row="2" Grid.Column="0" Foreground="White" FontFamily="Roboto" FontSize="17" HorizontalAlignment="Center"
                       Margin="5,10,5,5" VerticalAlignment="Center" IsChecked="{Binding MinimizeOnClosing, Mode=TwoWay}" 
-                      ToolTip="This option will take effect after application restart!">
-                Minimize app on closing
+                      ToolTip="(Allow working in background) This option will take effect after application restart!">
+                Minimize app on closing*
             </CheckBox>
 
 
