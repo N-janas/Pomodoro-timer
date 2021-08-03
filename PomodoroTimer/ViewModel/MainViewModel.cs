@@ -80,11 +80,6 @@ namespace PomodoroTimer.ViewModel
             }
         }
 
-        ~MainViewModel()
-        {
-            _notifyIconWrapper?.Dispose();
-        }
-
         private void OnOpening()
         {
             WindowState = WindowState.Normal;
@@ -92,6 +87,7 @@ namespace PomodoroTimer.ViewModel
 
         private void OnExiting()
         {
+            _notifyIconWrapper?.Dispose();
             Application.Current.Shutdown();
         }
 
